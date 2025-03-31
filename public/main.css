@@ -1,0 +1,169 @@
+/* Ensure full height and no margin on body */
+body {
+    background: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 400%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+#top_nav_bar {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the bar horizontally */
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0px 3px 3px rgb(0, 0, 0); /* X-offset, Y-offset, Blur, Spread, Color */
+    margin: 0;
+    height: 35px;
+    width: 100%;
+    z-index: 9998;
+}
+
+.btn {
+    opacity: 0;
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0px;
+    transition: 0.3s;
+    animation: fadeIn .1s forwards; /* Consolidated the animation duration */
+    padding: 0px 50px; /* Adjust padding */
+    color: white;
+    margin-top: 6.5px;
+}
+
+/* Delay each button */
+.btn:nth-child(1) { animation-delay: 0.05s; }
+.btn:nth-child(2) { animation-delay: 0.1s; }
+.btn:nth-child(3) { animation-delay: 0.15s; }
+.btn:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* The section that holds the video */
+#intro_animation {
+    position: relative;
+    width: 100vw;
+    height: 100vh; /* Triple the height of the viewport */
+    overflow: hidden;
+}
+
+/* Prevent scrolling */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* The video container */
+#video_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* The video itself */
+#blackhole_video {
+    position: fixed;
+    width: 100%; /* Make it cover the entire width */
+    height: auto; /* Adjust height automatically to maintain aspect ratio */
+    object-fit: cover; /* Ensures it covers the container without stretching */
+    z-index: -1; /* Ensure the video stays behind other content */
+    transition: opacity 1s ease-out; /* Add fade-out effect */
+}
+
+#intro {
+    position: absolute;  /* Ensures the section is positioned relative to the viewport */
+    top: 10%;  /* Initially placed below the viewport */
+    left: 0;
+    width: 100vw;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background-image: url('imgs/VANTA Landing Page design01.png');
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    z-index: 2;  /* Ensure it stays above previous sections */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;  /* Start hidden */
+    transform: translateY(20px);  /* Offset slightly for better animation */
+    transition: opacity 1s ease, transform 1s ease, top 1s ease;  /* Smooth transition */
+}
+
+/* When the class 'visible' is added */
+#intro.visible {
+    top: 0;  /* Move to the top of the screen */
+    opacity: 1;  /* Fade in */
+    transform: translateY(0);  /* Move into the screen */
+}
+
+#blackhole_section.hidden {
+    display: none;
+}
+
+/* Red Dot Styles */
+.red-dot {
+    background-image: url('imgs/Red_Dot_01.gif'); /* Reference to your red dot GIF */
+    position: absolute;
+    pointer-events: none;  /* This makes the dot not interfere with clicks */
+    width: 20px; 
+    height: 20px; 
+    z-index: 10000; /* Ensure the red dot is on top of other elements */
+    opacity: 0; /* Start hidden */
+    transform: scale(2); /* Start with the initial size */
+}
+
+/* Typing Text */
+.typing-container {
+    position: absolute;
+    top: 11vw;  /* Center vertically */
+    left: 5.5vw;   /* Pin the container to the left */
+    font-size: 1vw;
+    font-family: monospace;
+    font-style: italic;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Reduced text-shadow for better visibility */
+    z-index: 5;
+    display: inline-block; /* This ensures text grows horizontally */
+    white-space: nowrap;  /* Prevents the text from wrapping */
+    overflow: hidden;     /* Ensures text stays within the container */
+    min-width: 10vw; /* Ensure enough width for text */
+}
+
+/* Style the dynamic text */
+#dynamic-text {
+    display: inline-block; /* Keeps the text on a single line */
+    white-space: nowrap;   /* Prevents line breaks */
+    position: relative;    /* Allows absolute positioning for the underscore */
+    margin-left: 1.7vw;     /* Adjust this value to push the first letter to the right */
+    margin-top: 0.3vh;
+    z-index: 10; /* Ensure the text is above the red dot */
+}
+
+/* Blinking red dot (replacing the underscore) */
+#dynamic-text::before {
+    content: "";
+    position: absolute;
+    left: -1.5vw; /* Moves the red dot to the left of the first letter */
+    top: 0.1em;       /* Aligns the red dot with the first line of text */
+    background-image: url('imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
+    background-size: contain; /* Ensures the image scales properly */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    width: 1.2vw;  /* Set the width of the red dot */
+    height: 1.2vw; /* Set the height of the red dot */
+    animation: blink 0.7s infinite;
+}
+
+/* Blinking animation for the underscore */
+@keyframes blink {
+    50% { opacity: 0; }
+}
