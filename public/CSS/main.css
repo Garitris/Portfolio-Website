@@ -1,6 +1,7 @@
 /* Ensure full height and no margin on body */
+
 body {
-    background: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -79,14 +80,33 @@ body.no-scroll {
     transition: opacity 1s ease-out; /* Add fade-out effect */
 }
 
-#intro {
+#blackhole_section.hidden {
+    display: none;
+}
+
+/* Red Dot */
+.red-dot {
+    position: fixed;  /* Fixed positioning relative to the viewport */
+    top: -100px;      /* Start off-screen at the top */
+    left: 50%;        /* Center horizontally */
+    width: 25px;      /* Set your desired width */
+    height: 25px;     /* Set your desired height */
+    z-index: 10000;   /* Ensure it stays on top of other elements */
+    opacity: 1;       /* Start fully visible */
+    visibility: visible; /* Ensure it's visible right away */
+    transition: opacity 1s ease; /* Transition for opacity */
+}
+
+
+
+#main_gallery {
     position: absolute;  /* Ensures the section is positioned relative to the viewport */
     top: 10%;  /* Initially placed below the viewport */
     left: 0;
     width: 100vw;
     height: auto;
     aspect-ratio: 16 / 9;
-    background-image: url('imgs/VANTA Landing Page design01.png');
+    background-image: url('../imgs/VANTA_Landing_Page_design01.png');
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -100,26 +120,10 @@ body.no-scroll {
 }
 
 /* When the class 'visible' is added */
-#intro.visible {
+#main_gallery.visible {
     top: 0;  /* Move to the top of the screen */
     opacity: 1;  /* Fade in */
     transform: translateY(0);  /* Move into the screen */
-}
-
-#blackhole_section.hidden {
-    display: none;
-}
-
-/* Red Dot Styles */
-.red-dot {
-    background-image: url('imgs/Red_Dot_01.gif'); /* Reference to your red dot GIF */
-    position: absolute;
-    pointer-events: none;  /* This makes the dot not interfere with clicks */
-    width: 20px; 
-    height: 20px; 
-    z-index: 10000; /* Ensure the red dot is on top of other elements */
-    opacity: 0; /* Start hidden */
-    transform: scale(2); /* Start with the initial size */
 }
 
 /* Typing Text */
@@ -137,6 +141,7 @@ body.no-scroll {
     white-space: nowrap;  /* Prevents the text from wrapping */
     overflow: hidden;     /* Ensures text stays within the container */
     min-width: 10vw; /* Ensure enough width for text */
+    pointer-events: none;
 }
 
 /* Style the dynamic text */
@@ -147,6 +152,7 @@ body.no-scroll {
     margin-left: 1.7vw;     /* Adjust this value to push the first letter to the right */
     margin-top: 0.3vh;
     z-index: 10; /* Ensure the text is above the red dot */
+    pointer-events: none;
 }
 
 /* Blinking red dot (replacing the underscore) */
@@ -155,12 +161,13 @@ body.no-scroll {
     position: absolute;
     left: -1.5vw; /* Moves the red dot to the left of the first letter */
     top: 0.1em;       /* Aligns the red dot with the first line of text */
-    background-image: url('imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
+    background-image: url('../imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
     background-size: contain; /* Ensures the image scales properly */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     width: 1.2vw;  /* Set the width of the red dot */
     height: 1.2vw; /* Set the height of the red dot */
     animation: blink 0.7s infinite;
+    pointer-events: none;
 }
 
 /* Blinking animation for the underscore */
