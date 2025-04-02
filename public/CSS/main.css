@@ -1,7 +1,7 @@
 /* Ensure full height and no margin on body */
 
 body {
-    background: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -52,7 +52,7 @@ body {
 #intro_animation {
     position: relative;
     width: 100vw;
-    height: 100vh; /* Triple the height of the viewport */
+    height: 100vh; 
     overflow: hidden;
 }
 
@@ -97,26 +97,19 @@ body.no-scroll {
     transition: opacity 1s ease; /* Transition for opacity */
 }
 
-
-
+/* Main Gallery Section */
 #main_gallery {
-    position: absolute;  /* Ensures the section is positioned relative to the viewport */
-    top: 10%;  /* Initially placed below the viewport */
-    left: 0;
+    position: absolute;
     width: 100vw;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    background-image: url('../imgs/VANTA_Landing_Page_design01.png');
-    background-size: cover;
-    background-position: top center;
-    background-repeat: no-repeat;
-    z-index: 2;  /* Ensure it stays above previous sections */
+    height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    opacity: 0;  /* Start hidden */
-    transform: translateY(20px);  /* Offset slightly for better animation */
-    transition: opacity 1s ease, transform 1s ease, top 1s ease;  /* Smooth transition */
+    justify-content: center;
+    overflow: hidden;
+    background-color: black; /* Adjust to match your theme */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 /* When the class 'visible' is added */
@@ -124,6 +117,50 @@ body.no-scroll {
     top: 0;  /* Move to the top of the screen */
     opacity: 1;  /* Fade in */
     transform: translateY(0);  /* Move into the screen */
+}
+
+/* Gallery Container */
+.gallery {
+    position: relative;
+    width: 100%; /* Adjust width as needed */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+
+.gallery-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    will-change: transform;
+    
+}
+
+.gallery-item {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+    
+}
+
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    color: rgb(255, 0, 0);
+    border: none;
+    padding: 10px 100px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
+
+.gallery-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
 }
 
 /* Typing Text */

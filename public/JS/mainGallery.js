@@ -1,21 +1,65 @@
-
-// Function to trigger the visibility and animation of the second section
 export const handleMainGalleryAnimation = () => {
     const mainGallery = document.getElementById("main_gallery");
+    const galleryTrack = document.querySelector(".gallery-track");
+    const leftBtn = document.querySelector(".left-btn");
+    const rightBtn = document.querySelector(".right-btn");
 
-    // Ensure the main gallery section starts hidden
-    mainGallery.classList.add("hidden");
+    // Get original items BEFORE cloning
+    let items = document.querySelectorAll(".gallery-item");
+    const totalItems = items.length;
 
-    // Wait for the blackhole animation to finish (assuming the blackhole animation triggers an event or timeout)
-    // If you want to trigger the reveal after a video ends, you can use an event listener
+    // Clone first and last items
+    const firstClone = items[0].cloneNode(true);
+    const lastClone = items[totalItems - 1].cloneNode(true);
 
-    document.getElementById("blackhole_video").addEventListener("ended", () => {
-        // Add the 'visible' class to make the section slide into view
-        mainGallery.classList.remove("hidden");
+    // Append clones
+    galleryTrack.appendChild(firstClone);
+    galleryTrack.insertBefore(lastClone, items[0]);
 
-        // This will trigger the CSS animation for sliding up into view
+    // Update items after cloning
+    items = document.querySelectorAll(".gallery-track img"); // Re-fetch updated list
+    let currentIndex = 1; // Start at first real image
+
+    // Function to update the gallery position
+    function updateGallery(animated = true) {
+        if (animated) {
+            galleryTrack.style.transition = "transform 0.4s ease-in-out";
+        } else {
+            galleryTrack.style.transition = "none"; // Instantly move without animation
+        }
+        galleryTrack.style.transform = `translateX(${-currentIndex * items[0].clientWidth}px)`;
+    }
+
+    // Initialize gallery at first real image
+    updateGallery(false);
+
+    // Function to handle next/previous movement
+    function moveGallery(direction) {
+        currentIndex += direction;
+        updateGallery();
+
+        // Handle seamless transition after animation
         setTimeout(() => {
-            mainGallery.classList.add("visible");
-        }, 500);  // Slight delay to make sure the intro section has faded in
+            if (currentIndex >= totalItems + 1) { // Reached cloned first image
+                currentIndex = 1;
+                updateGallery(false);
+            } else if (currentIndex <= 0) { // Reached cloned last image
+                currentIndex = totalItems;
+                updateGallery(false);
+            }
+        }, 400); // Ensure transition completes first
+    }
+
+    // Event Listeners for Buttons
+    rightBtn.addEventListener("click", () => moveGallery(1));  // Next
+    leftBtn.addEventListener("click", () => moveGallery(-1));  // Previous
+
+    // Keyboard Support
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") moveGallery(1);
+        if (event.key === "ArrowLeft") moveGallery(-1);
     });
+
+    // Ensure resizing doesn't break layout
+    window.addEventListener("resize", () => updateGallery(false));
 };
