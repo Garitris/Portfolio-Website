@@ -1,0 +1,18 @@
+
+/* Fourth Section */
+#advertisement_content{
+    position: relative;
+    width: 100vw;
+    height: 200vh; /* 200% the viewport height */
+    background-color: #0c0c0c; /* Dark background to match your theme */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.fourth_section_content {
+    text-align: center;
+    font-size: 1.5rem;
+    max-width: 80%; /* Keeps the text nicely contained. */
+}

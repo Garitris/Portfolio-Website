@@ -1,0 +1,12 @@
+/* Red Dot */
+.red-dot {
+    position: absolute;  /* Fixed positioning relative to the viewport */
+    top: -100px;      /* Start off-screen at the top */
+    left: 50%;        /* Center horizontally */
+    width: 25px;      /* Set your desired width */
+    height: 25px;     /* Set your desired height */
+    z-index: 10000;   /* Ensure it stays on top of other elements */
+    opacity: 1;       /* Start fully visible */
+    visibility: visible; /* Ensure it's visible right away */
+    transition: opacity 1s ease; /* Transition for opacity */
+}

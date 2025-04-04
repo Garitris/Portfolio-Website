@@ -1,0 +1,10 @@
+/* Ensure full height and no margin on body */
+body {
+    background: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 800%;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}

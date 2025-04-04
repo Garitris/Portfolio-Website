@@ -1,0 +1,114 @@
+/* Main Gallery Section */
+#main_gallery {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: black; /* Adjust to match your theme */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* When the class 'visible' is added */
+#main_gallery.visible {
+    top: 0;  /* Move to the top of the screen */
+    opacity: 1;  /* Fade in */
+    transform: translateY(0);  /* Move into the screen */
+}
+
+/* Gallery Container */
+.gallery {
+    position: relative;
+    width: 100%; /* Adjust width as needed */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+
+.gallery-track {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    will-change: transform;
+    
+}
+
+.gallery-item {
+    flex: 0 0 100%;
+    min-width: 100%;
+    max-width: 100%;
+    
+}
+
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    color: rgb(255, 0, 0);
+    border: none;
+    padding: 10px 100px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.left-btn { left: 10px; }
+.right-btn { right: 10px; }
+
+.gallery-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Typing Text */
+.typing-container {
+    position: absolute;
+    top: 11vw;  /* Center vertically */
+    left: 5.5vw;   /* Pin the container to the left */
+    font-size: 1vw;
+    font-family: monospace;
+    font-style: italic;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Reduced text-shadow for better visibility */
+    z-index: 5;
+    display: inline-block; /* This ensures text grows horizontally */
+    white-space: nowrap;  /* Prevents the text from wrapping */
+    overflow: hidden;     /* Ensures text stays within the container */
+    min-width: 10vw; /* Ensure enough width for text */
+    pointer-events: none;
+}
+
+/* Style the dynamic text */
+#dynamic-text {
+    display: inline-block; /* Keeps the text on a single line */
+    white-space: nowrap;   /* Prevents line breaks */
+    position: relative;    /* Allows absolute positioning for the underscore */
+    margin-left: 1.7vw;     /* Adjust this value to push the first letter to the right */
+    margin-top: 60vh;
+    z-index: 10; /* Ensure the text is above the red dot */
+    pointer-events: none;
+}
+
+/* Blinking red dot (replacing the underscore) */
+#dynamic-text::before {
+    content: "";
+    position: absolute;
+    left: -1.5vw; /* Moves the red dot to the left of the first letter */
+    top: 0.1em;       /* Aligns the red dot with the first line of text */
+    background-image: url('../imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
+    background-size: contain; /* Ensures the image scales properly */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    width: 1.2vw;  /* Set the width of the red dot */
+    height: 1.2vw; /* Set the height of the red dot */
+    animation: blink 0.7s infinite;
+    pointer-events: none;
+}
+
+/* Blinking animation for the underscore */
+@keyframes blink {
+    50% { opacity: 0; }
+}

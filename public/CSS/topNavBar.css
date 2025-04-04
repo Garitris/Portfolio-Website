@@ -1,0 +1,37 @@
+#top_nav_bar {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the bar horizontally */
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0px 3px 3px rgb(0, 0, 0); /* X-offset, Y-offset, Blur, Spread, Color */
+    margin: 0;
+    height: 35px;
+    width: 100%;
+    z-index: 9998;
+}
+
+.btn {
+    opacity: 0;
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0px;
+    transition: 0.3s;
+    animation: fadeIn .1s forwards; /* Consolidated the animation duration */
+    padding: 0px 50px; /* Adjust padding */
+    color: white;
+    margin-top: 6.5px;
+}
+
+/* Delay each button */
+.btn:nth-child(1) { animation-delay: 0.05s; }
+.btn:nth-child(2) { animation-delay: 0.1s; }
+.btn:nth-child(3) { animation-delay: 0.15s; }
+.btn:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
