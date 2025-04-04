@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 400%;
+    height: 500%;
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
@@ -86,7 +86,7 @@ body.no-scroll {
 
 /* Red Dot */
 .red-dot {
-    position: fixed;  /* Fixed positioning relative to the viewport */
+    position: absolute;  /* Fixed positioning relative to the viewport */
     top: -100px;      /* Start off-screen at the top */
     left: 50%;        /* Center horizontally */
     width: 25px;      /* Set your desired width */
@@ -187,7 +187,7 @@ body.no-scroll {
     white-space: nowrap;   /* Prevents line breaks */
     position: relative;    /* Allows absolute positioning for the underscore */
     margin-left: 1.7vw;     /* Adjust this value to push the first letter to the right */
-    margin-top: 0.3vh;
+    margin-top: 60vh;
     z-index: 10; /* Ensure the text is above the red dot */
     pointer-events: none;
 }
@@ -210,4 +210,22 @@ body.no-scroll {
 /* Blinking animation for the underscore */
 @keyframes blink {
     50% { opacity: 0; }
+}
+
+/* Third Section */
+#brand_identity {
+    position: relative;
+    width: 100vw;
+    height: 200vh; /* 200% the viewport height */
+    background-color: #121212; /* Dark background to match your theme */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.third-section-content {
+    text-align: center;
+    font-size: 1.5rem;
+    max-width: 80%; /* Keeps the text nicely contained. */
 }
