@@ -11,7 +11,26 @@
 }
 
 .third_section_content {
-    text-align: center;
-    font-size: 1.5rem;
-    max-width: 80%; /* Keeps the text nicely contained. */
+    background-image: url(../imgs/VANTA_Landing_Page_design01.png);
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100vw;  /* full window width */
+    height: 100vh; /* full window height */
+    margin-top: -900px;
+
 }
+
+/* Initial state (hidden) for Section 3 */
+.third_section_content.hidden {
+    opacity: 0;
+    transform: translateY(50px); /* slide up effect */
+    transition: all 1s ease;
+  }
+  
+  /* When Section 3 becomes visible */
+  .third_section_content.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  

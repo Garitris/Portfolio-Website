@@ -4,6 +4,7 @@ import { revealRedDot } from './redDotReveal.js'; // Red dot reveal function
 import { handleVideoEnd } from './dynamicTexts.js'; // Handle dynamic text typing after video ends
 import { handleMainGalleryAnimation } from './mainGallery.js'; // Handle second section (main gallery)
 import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle the scroll and hover effects of nav bar
+import { handleSectionTransition } from './sectionTransition.js'; // Import Section transition animation
 
 // Wait for the DOM content to load
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,4 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize the hover effect for navbar buttons
     handleNavbarHover();   // Change button color on hover
+
+    // Handle the transition animation between Section 2 and Section 3
+    handleSectionTransition(); // New section transition functionality
 });
