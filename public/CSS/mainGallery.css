@@ -29,7 +29,6 @@
     justify-content: center;
 }
 
-
 .gallery-track {
     display: flex;
     transition: transform 0.4s ease-in-out;
@@ -98,7 +97,7 @@
     content: "";
     position: absolute;
     left: -1.5vw; /* Moves the red dot to the left of the first letter */
-    top: 0.1em;       /* Aligns the red dot with the first line of text */
+    top: 0.1em; /* Aligns the red dot with the first line of text */
     background-image: url('../imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
     background-size: contain; /* Ensures the image scales properly */
     background-repeat: no-repeat; /* Prevents the image from repeating */

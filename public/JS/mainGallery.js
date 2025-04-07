@@ -5,6 +5,7 @@ export const handleMainGalleryAnimation = () => {
 
     // Get original items BEFORE cloning
     let items = document.querySelectorAll(".gallery-item");
+
     const totalItems = items.length;
 
     // Clone first and last items (without anchor tags)
@@ -19,6 +20,9 @@ export const handleMainGalleryAnimation = () => {
     items = document.querySelectorAll(".gallery-track .gallery-item"); // Re-fetch updated list
     let currentIndex = 1; // Start at first real image
 
+    // Initialize gallery at first real image
+    updateGallery(false);
+
     // Function to update the gallery position
     function updateGallery(animated = true) {
         if (animated) {
@@ -28,9 +32,6 @@ export const handleMainGalleryAnimation = () => {
         }
         galleryTrack.style.transform = `translateX(${-currentIndex * window.innerWidth}px)`; // Use window.innerWidth here
     }
-
-    // Initialize gallery at first real image
-    updateGallery(false);
 
     // Function to handle next/previous movement
     function moveGallery(direction) {
@@ -47,17 +48,6 @@ export const handleMainGalleryAnimation = () => {
             }
         }, 400);
     }
-
-    // Event Listeners for Buttons
-    rightBtn.addEventListener("click", () => {
-        console.log("Right button clicked");  // Debugging
-        moveGallery(1);
-    });
-
-    leftBtn.addEventListener("click", () => {
-        console.log("Left button clicked");  // Debugging
-        moveGallery(-1);
-    });
 
     // Event Listeners for Gallery Item Clicks (Navigation)
     items.forEach(item => {
