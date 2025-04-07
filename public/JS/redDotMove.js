@@ -31,6 +31,14 @@ export function trackMouse() {
 
 // Function to initialize the red dot movement AFTER reveal animation
 export function initializeRedDot() {
+    // Check if the animation has already been completed
+    if (sessionStorage.getItem('animationComplete') === 'true') {
+        console.log("Red dot initialized immediately after animation completion.");
+    } else {
+        console.log("Animation is not complete yet. Red dot will initialize after animation.");
+    }
+
+    // Find the red dot element
     redDot = document.querySelector(".red-dot");
 
     if (!redDot) {
@@ -44,6 +52,9 @@ export function initializeRedDot() {
     targetX = currentX;
     targetY = currentY;
 
-    updateRedDotPosition(); // Start movement loop
-    trackMouse();           // Start tracking the mouse
+    // Start the red dot movement loop
+    updateRedDotPosition();
+
+    // Start tracking the mouse to update target position
+    trackMouse();
 }

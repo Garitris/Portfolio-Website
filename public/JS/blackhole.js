@@ -1,8 +1,11 @@
-// Select elements needed for the animation
+import { revealRedDot } from "./redDotReveal.js"; // Import red dot reveal logic
+
+export { setupBlackholeAnimation };
+
 const videoElement = document.getElementById("blackhole_video");
 const introSection = document.getElementById("intro_animation");
 
-// Function to disable scrolling
+// Disable scroll during animation
 function disableScroll() {
     window.addEventListener("wheel", preventDefault, { passive: false });
     window.addEventListener("touchmove", preventDefault, { passive: false });
@@ -10,7 +13,7 @@ function disableScroll() {
     document.body.style.overflow = "hidden";
 }
 
-// Function to enable scrolling
+// Enable scroll after animation
 function enableScroll() {
     window.removeEventListener("wheel", preventDefault, { passive: false });
     window.removeEventListener("touchmove", preventDefault, { passive: false });
@@ -23,21 +26,38 @@ function preventDefault(e) {
 }
 
 function preventDefaultForScrollKeys(e) {
-    if ([32, 37, 38, 39, 40, 33, 34].indexOf(e.keyCode) !== -1) {
+    const keysToBlock = [32, 37, 38, 39, 40, 33, 34];
+    if (keysToBlock.includes(e.keyCode)) {
         e.preventDefault();
     }
 }
 
+// Function to handle what happens when animation ends
+function handleAnimationEnd() {
+    videoElement.style.opacity = 0;
+    introSection.classList.add("visible");
+
+    enableScroll();
+    sessionStorage.setItem('animationComplete', 'true');
+
+    console.log("Triggering red dot reveal after animation ends...");
+    revealRedDot(); // ⬅️ Don’t skip delay on first visit
+}
+
 // Function to set up the black hole animation
 function setupBlackholeAnimation() {
-    videoElement.addEventListener("ended", function () {
+    const alreadyPlayed = sessionStorage.getItem("animationComplete") === "true";
+
+    if (alreadyPlayed) {
         videoElement.style.opacity = 0;
         introSection.classList.add("visible");
         enableScroll();
-    });
-
-    disableScroll(); // Disable scrolling during the animation
+        revealRedDot(true); // ⬅️ Skip the delay on revisit
+    } else {
+        disableScroll();
+        videoElement.addEventListener("ended", handleAnimationEnd);
+    }
 }
 
-// ✅ Export the function properly
-export { setupBlackholeAnimation };
+// Run immediately
+setupBlackholeAnimation();

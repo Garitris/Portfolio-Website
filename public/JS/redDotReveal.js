@@ -1,6 +1,6 @@
-import { initializeRedDot } from "./redDotMove.js"; // Import movement logic
+import { initializeRedDot } from "./redDotMove.js";
 
-export function revealRedDot() {
+export function revealRedDot(skipDelay = false) {
     const redDot = document.querySelector(".red-dot");
 
     if (!redDot) {
@@ -8,17 +8,21 @@ export function revealRedDot() {
         return;
     }
 
-    // Delay the transition and start animation to make the red dot visible and shrink
-    setTimeout(() => {
-        // After animation ends, set visibility to visible (to ensure it stays on screen)
-        setTimeout(() => {
-            redDot.style.visibility = "visible"; // Ensure it's visible after animation ends
-        }, 11000); // Wait for 2 seconds (the duration of the transition)
-    }, 0); // Start transition immediately
+    // If skipping delay (e.g., revisit), start immediately
+    if (skipDelay) {
+        redDot.style.visibility = "visible";
+        redDot.style.top = "0px"; // Drop from top — adjust as needed
+        initializeRedDot();
+        return;
+    }
 
-    // Start red dot movement after the animation completes and the 9.9-second delay
+    // Otherwise, run the intro logic (wait before reveal and move)
     setTimeout(() => {
-        console.log("Initializing red dot movement after animation...");
-        initializeRedDot(); // Start following the cursor after the animation is complete
-    }, 11000); // Delay movement by 9.9 seconds after the animation has finished
+        redDot.style.visibility = "visible";
+    }, 11000);
+
+    setTimeout(() => {
+        console.log("Initializing red dot movement...");
+        initializeRedDot();
+    }, 11000);
 }

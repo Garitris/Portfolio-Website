@@ -1,3 +1,8 @@
+/* Hide all sections initially that aren't required */
+.other-sections {
+    display: none;  /* Ensure non-active sections are hidden */
+}
+
 /* Main Gallery Section */
 #main_gallery {
     position: absolute;

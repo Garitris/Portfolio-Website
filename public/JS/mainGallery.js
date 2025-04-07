@@ -69,6 +69,44 @@ export const handleMainGalleryAnimation = () => {
     let currentIndex = 1; // Start at index 1 to display the second image (the first actual gallery item)
     updateGallery(false);
 
+    // Handle gallery visibility after animation
+    const isAnimationComplete = sessionStorage.getItem('animationComplete');
+
+    // Show the gallery only if animation is complete
+    if (isAnimationComplete === 'true') {
+        document.getElementById('main_gallery').classList.remove('hidden');
+        document.getElementById('main_gallery').classList.add('visible');
+        enableScroll(); // Enable scrolling immediately if animation is complete
+    } else {
+        // Set up event listener for when the animation ends
+        const blackholeVideo = document.getElementById('blackhole_video');
+        if (blackholeVideo) {
+            blackholeVideo.addEventListener('ended', () => {
+                sessionStorage.setItem('animationComplete', 'true');
+                document.getElementById('main_gallery').classList.remove('hidden');
+                document.getElementById('main_gallery').classList.add('visible');
+                enableScroll(); // Enable scrolling after the animation ends
+            });
+        }
+    }
+
+    // Function to enable scrolling
+    function enableScroll() {
+        console.log('Enabling scroll');
+        // Set a small timeout to ensure that the DOM and styles are fully updated
+        setTimeout(() => {
+            document.body.style.overflow = 'auto'; // Enable scrolling on the body
+            document.documentElement.style.overflow = 'auto'; // Enable scrolling on the root
+        }, 100); // Add a short delay to ensure styles are applied
+    }
+
+    // Function to disable scrolling (if necessary during animation)
+    function disableScroll() {
+        console.log('Disabling scroll');
+        document.body.style.overflow = 'hidden'; // Disable scrolling
+        document.documentElement.style.overflow = 'hidden'; // Disable scrolling
+    }
+
     function updateGallery(animated = true) {
         // Apply a smooth transition if animated, otherwise no transition
         galleryTrack.style.transition = animated ? "transform 0.4s ease-in-out" : "none";
