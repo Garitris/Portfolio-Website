@@ -8,17 +8,22 @@ export function revealRedDot(skipDelay = false) {
         return;
     }
 
-    // If skipping delay (e.g., revisit), start immediately
     if (skipDelay) {
+        console.log("Red dot reveal: skipping delay (session revisit)");
         redDot.style.visibility = "visible";
-        redDot.style.top = "0px"; // Drop from top — adjust as needed
+        redDot.style.top = "0px";
+        redDot.dataset.revealed = "true"; // <-- Mark that it's been revealed
         initializeRedDot();
         return;
     }
 
-    // Otherwise, run the intro logic (wait before reveal and move)
+    // Only run the delayed logic if redDot hasn't been revealed already
+    if (redDot.dataset.revealed === "true") return;
+
     setTimeout(() => {
         redDot.style.visibility = "visible";
+        redDot.style.top = "0px"; // ← drop from top
+        redDot.dataset.revealed = "true"; // Mark revealed
     }, 11000);
 
     setTimeout(() => {

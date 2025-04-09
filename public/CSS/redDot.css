@@ -9,4 +9,5 @@
     opacity: 1;       /* Start fully visible */
     visibility: visible; /* Ensure it's visible right away */
     transition: opacity 1s ease; /* Transition for opacity */
+    transform: translate(-50%, -50%); /*this centers the dot correctly, and avoids it hanging off the right/bottom edges.*/
 }
