@@ -6,6 +6,7 @@
     background-color: rgb(0, 0, 0);
     box-shadow: 0px 3px 3px rgb(0, 0, 0); /* X-offset, Y-offset, Blur, Spread, Color */
     margin: 0;
+    padding: 0%;
     height: 35px;
     width: 100%;
     z-index: 9998;
