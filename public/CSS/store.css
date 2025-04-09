@@ -1,4 +1,14 @@
 #store {
-    background-image: url('../imgs/gallery_image_1.png');
+   background-color: rgb(0, 240, 160);
+   height: 100vh; /* or try 500px, or add padding */
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden; /* 🚫 disables horizontal scroll */
+   width: 100%;
+ }
  
-}
+ /* Optional: limit all elements' width to viewport */
+ * {
+   box-sizing: border-box;
+   max-width: 100vw;
+ }

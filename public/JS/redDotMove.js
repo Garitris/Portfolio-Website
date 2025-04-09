@@ -79,7 +79,7 @@ export function initializeRedDot() {
     currentX = redDotRect.left;
     currentY = redDotRect.top;
 
-    // 🛠️ CRUCIAL FIX:
+    // CRUCIAL FIX:
     // Set targetX and targetY to the same values at the start
     // This avoids the red dot "jumping" fast toward the cursor on revisit,
     // which happens when the cursor is far away from where the red dot spawns
