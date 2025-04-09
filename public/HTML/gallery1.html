@@ -1,40 +1,82 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>GariPrtWbsite</title>
-        <link rel="stylesheet" href="CSS/main.css">
-    </head>
-    <body>
-       <header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GariPrtWbsite</title>
+    <link rel="stylesheet" href="../CSS/main.css">
+</head>
+<body>    
+
+    <!-- Red dot GIF (following the cursor) -->
+    <img class="red-dot" src="../imgs/Red_Dot_01.gif" alt="Red Dot" />
+
+    <header id="top_nav_bar">
         <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="locations.html">Locations</a></li>
-                <li><a href="contacts.html">Contacts</a></li>
-            </ul>
+            <div class="button-list">
+                <button class="btn">Collection</button>
+                <button class="btn">LookDev</button>
+                <button class="btn">Store</button>
+                <button class="btn">About Me</button>
+            </div>
         </nav>
-        <h1>Locations</h1>
-       </header>
-       <section>
-        <div>a</div>
-        <div>b</div>
-        <div>c</div>
-       </section>
-       <section>lower-section</section>
-       <footer>footer</footer>
+    </header>
 
-        <p>This is a paragraph of information. 
-           This is a paragraph of information.
-           This is a paragraph of information.
-        </p>
+    <!-- Landing animation -->
+    <section id="intro_animation">
+        <div id="video_container">
+            <video id="blackhole_video" autoplay muted playsinline preload="metadata">
+                <source src="../imgs/InShot_20250330_014659291.mp4" type="video/mp4">
+            </video>
+        </div>
+    </section>
 
-        <textarea placeholder="Kindly leave your feedback"></textarea>
-        <br>   
-            <button>
-            Click M!
-        </button> 
-            
-    </body>
+    <!-- Head intro -->
+    <section id="main_gallery" class="hidden">
+        <div class="typing-container">
+            <p id="dynamic-text"></p></div>
+        <button class="gallery-btn left-btn">&#9664;</button> <!-- Left Button -->
+        <div class="gallery">
+            <div class="gallery-track">
+                <a href="HTML/gallery1.html"><img src="../imgs/gallery_image_1.png" alt="Image 1" class="gallery-item"></a>
+                <a href="HTML/gallery2.html"><img src="../imgs/gallery_image_2.png" alt="Image 2" class="gallery-item"></a>
+                <a href="HTML/gallery3.html"><img src="../imgs/gallery_image_3.png" alt="Image 3" class="gallery-item"></a>
+                <a href="HTML/gallery4.html"><img src="../imgs/gallery_image_4.png" alt="Image 4" class="gallery-item"></a>
+            </div>            
+        </div>
+        <button class="gallery-btn right-btn">&#9654;</button> <!-- Right Button -->
+    </section>
+   
+    <section id="brand_identity">
+        <div class="third_section_content">
+        
+        </div>
+    </section>
+
+    <section id="advertisement_content">
+        <div class="fourth_section_content">
+            <p>Section 4.</p>
+            <p>This section is twice the height of the viewport.</p>
+        </div>
+    </section>
+
+    <section class="features"></section>
+
+    <section class="feature-box closeouts">
+        <div>d</div>
+        <div>e</div>
+    </section>
+    
+    <section>lower-section</section>
+
+    <footer>footer</footer>
+
+    <p>This is a paragraph of information.</p>
+
+    <textarea placeholder="Kindly leave your feedback"></textarea>
+    <br>   
+    <button>Click M!</button> 
+
+    <script type="module" src="../JS/main.js"></script>
+</body>
 </html>
