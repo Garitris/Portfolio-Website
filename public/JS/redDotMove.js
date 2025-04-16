@@ -2,13 +2,14 @@
 // These never change. They're parameters for how the dot behaves.
 const jitterDistance = 60;      // When dot gets this close to cursor, start jittering
 const jitterIntensity = 3.5;    // How intense the jitter effect is
-const baseSpeed = 0.0025;       // Base movement speed of the red dot
+const baseSpeed = 0.0004;       // Base movement speed of the red dot (screen-size normalized)
 
 // ========== VARIABLES ==========
 // These change over time as the dot moves around
 let redDot;                     // The actual red dot element from the DOM
 let currentX, currentY;         // Current position of the red dot
 let targetX, targetY;           // Target position (follows the mouse)
+let lastTimestamp = null;       // Timestamp of the previous animation frame
 
 // ========== EVENT LISTENER ==========
 // Watches the mouse and updates the targetX / targetY values
@@ -21,8 +22,13 @@ export function trackMouse() {
 
 // ========== CORE LOOP ==========
 // Called every frame to update the red dot’s position
-export function updateRedDotPosition() {
+export function updateRedDotPosition(timestamp) {
     if (!redDot) return; // Safety check
+
+    // Time delta in seconds between frames
+    if (lastTimestamp === null) lastTimestamp = timestamp;
+    const deltaTime = (timestamp - lastTimestamp) / 1000;
+    lastTimestamp = timestamp;
 
     const dx = targetX - currentX;
     const dy = targetY - currentY;
@@ -30,13 +36,15 @@ export function updateRedDotPosition() {
     // Calculate distance to target (Pythagorean theorem)
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    // Easing based on distance (dot slows down as it nears target)
-    const easing = Math.min(baseSpeed * distance, 20);
+    // Easing factor: increase speed when far, slow down when near
+    const easingFactor = Math.min(distance * 0.01, 1); // Between 0–1
 
-    // Find direction of movement (angle toward the target)
-    const angle = Math.atan2(dy, dx);
-    const stepX = Math.cos(angle) * easing;
-    const stepY = Math.sin(angle) * easing;
+    // Scaled speed based on screen width and frame delta
+    const speed = baseSpeed * window.innerWidth * easingFactor;
+
+    // Movement per frame
+    const stepX = dx * speed * deltaTime;
+    const stepY = dy * speed * deltaTime;
 
     // If dot is close to the target, apply jitter for dynamic effect
     if (distance < jitterDistance) {
@@ -84,6 +92,6 @@ export function initializeRedDot() {
     targetY = currentY;
 
     // Start movement loop + mouse tracking
-    updateRedDotPosition();
+    requestAnimationFrame(updateRedDotPosition);
     trackMouse();
 }
