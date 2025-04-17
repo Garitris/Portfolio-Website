@@ -12,11 +12,14 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: black; /* Adjust to match your theme */
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
-}
+    outline: 1px solid rgb(248, 50, 1);
+    z-index: 1000;
+    
+  }
+
 
 /* When the class 'visible' is added */
 #main_gallery.visible {
@@ -114,3 +117,4 @@
 @keyframes blink {
     50% { opacity: 0; }
 }
+

@@ -1,9 +1,18 @@
+/* ======================= */
+/* INTRO ANIMATION SECTION */
+/* ======================= */
+
 /* The section that holds the video */
 #intro_animation {
     position: relative;
     width: 100vw;
-    height: 100vh; 
+
+    /* Forces full height even if parent containers collapse */
+    height: 100vh;
+    min-height: 100vh;
+
     overflow: hidden;
+    display: flex;
 }
 
 /* Prevent scrolling */
@@ -23,13 +32,14 @@ body.no-scroll {
 /* The video itself */
 #blackhole_video {
     position: fixed;
-    width: 100%; /* Make it cover the entire width */
-    height: auto; /* Adjust height automatically to maintain aspect ratio */
-    object-fit: cover; /* Ensures it covers the container without stretching */
-    z-index: -1; /* Ensure the video stays behind other content */
+    width: 100%;                /* Make it cover the entire width */
+    height: auto;               /* Adjust height automatically to maintain aspect ratio */
+    object-fit: cover;          /* Ensures it covers the container without stretching */
+    z-index: -1;                /* Ensure the video stays behind other content */
     transition: opacity 1s ease-out; /* Add fade-out effect */
 }
 
+/* Hide the entire section when marked as hidden */
 #blackhole_section.hidden {
     display: none;
 }

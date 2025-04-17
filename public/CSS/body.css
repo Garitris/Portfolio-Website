@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 800%;
+    height: 100%;
     overflow-x: hidden; /* Prevent horizontal scrolling */
     width: 100%;
     position: relative;
@@ -14,4 +14,5 @@ body {
 * {
   box-sizing: border-box;
   max-width: 100vw;
+  outline: 1px solid lime;
 }

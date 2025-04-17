@@ -1,14 +1,14 @@
 #promotional {
     position: fixed;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgb(209, 67, 67);
-    z-index: 9998;
-    margin: 0;
-    padding: 0;
+    top: 0;
+    left: 0;
     height: 35px;
     width: 100%;
-    visibility: visible; /* Make sure it's visible */
-    display: block; /* Ensure it's not set to display:none */
+    background-color: black;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+    
+
