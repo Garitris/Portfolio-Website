@@ -24,7 +24,7 @@ export const handleNavbarScroll = () => {
 
         // Calculate the new top margin based on scroll position
         // The navbar's top margin will shrink as the user scrolls down
-        let topMargin = 30 - (scrollPosition / 5); // Adjust the factor to control the shrinking speed of the top margin
+        let topMargin = 40 - (scrollPosition / 5); // Adjust the factor to control the shrinking speed of the top margin
 
         // Ensure the top margin does not shrink below 8px
         if (topMargin < 8) {
