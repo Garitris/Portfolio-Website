@@ -1,6 +1,6 @@
 #top_nav_bar {
+    /* top position handled in js */
     position: fixed;
-    top: 40px;
     left: 50%;
     transform: translateX(-50%); /* Centers the bar horizontally */
     background-color: rgb(0, 0, 0);
