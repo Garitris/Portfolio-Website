@@ -5,6 +5,9 @@ export const handleNavbarScroll = () => {
     // Select the navbar element by its ID
     const section = document.querySelector('#top_nav_bar');
 
+    const nav = document.querySelector('#top_nav_bar');
+    nav.style.top = '35px'; // Set it right away
+
     // Add an event listener for the scroll event
     window.addEventListener('scroll', () => {
         // Get the current scroll position on the Y-axis
