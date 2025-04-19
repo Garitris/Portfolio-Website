@@ -2,7 +2,7 @@
 
 // Export function to handle promotional bar animation
 export const promotionalBarAnim = () => {
-    const section = document.querySelector('#promotional_bar');
+    const section = document.querySelector('#promotionalBar');
 
     // Ensure the section exists
     if (!section) return;

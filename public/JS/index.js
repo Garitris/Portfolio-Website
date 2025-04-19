@@ -5,7 +5,7 @@ import { handleVideoEnd } from './dynamicTexts.js'; // Handle dynamic text typin
 import { handleMainGalleryAnimation } from './mainGallery.js'; // Handle second section (main gallery)
 import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle the scroll and hover effects of nav bar
 import { handleSectionTransition } from './sectionTransition.js'; // Import Section transition animation
-import { promotionalBarAnim } from "./promotional_bar.js";
+import { promotionalBarAnim } from "./promotionalBar.js";
 
 // Wait for the DOM content to load
 document.addEventListener("DOMContentLoaded", () => {
