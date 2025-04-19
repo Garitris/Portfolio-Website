@@ -1,16 +1,17 @@
-// Function for typing dynamic text
+// ========== TYPE TEXT UTILITY ==========
+// Handles typing animation for dynamic messages
 export function typeText(elementId, dynamicText, typingSpeed = 100) {
     const dynamicTextElement = document.getElementById(elementId);
 
-    // Ensure the element exists
+    // Ensure the target element exists
     if (!dynamicTextElement) {
         console.error("Dynamic text element not found:", elementId);
         return;
     }
 
-     // Disable interactions (e.g., no text selection or clicks)
-     dynamicTextElement.style.pointerEvents = "none";
-     dynamicTextElement.style.userSelect = "none"; // Disable text selection
+    // Disable interactions (e.g., no text selection or clicks)
+    dynamicTextElement.style.pointerEvents = "none";
+    dynamicTextElement.style.userSelect = "none";
 
     let index = 0;
 
@@ -22,15 +23,15 @@ export function typeText(elementId, dynamicText, typingSpeed = 100) {
         }
     }
 
-    type();
+    type(); // Start typing
 }
 
-// Function to handle the video end and reveal the intro section
+// ========== HANDLE VIDEO END ==========
 export function handleVideoEnd(videoElementId, introElementId, typingSpeed = 100) {
-    const introSection = document.getElementById(introElementId); // Should be 'main_gallery'
-    const videoElement = document.getElementById(videoElementId); // Should be 'blackhole_video'
+    const videoElement = document.getElementById(videoElementId);     // e.g. "blackhole_video"
+    const introSection = document.getElementById(introElementId);     // e.g. "main_gallery"
 
-    // Ensure the video and intro section exist
+    // Confirm video and intro section exist
     if (!videoElement) {
         console.error("Video element not found:", videoElementId);
         return;
@@ -40,27 +41,20 @@ export function handleVideoEnd(videoElementId, introElementId, typingSpeed = 100
         return;
     }
 
-    // Determine the dynamic text to type based on the section or state
-    const dynamicText = getDynamicText();  // Call to get the correct dynamic text
+    const dynamicText = getDynamicText(); // Get the string to type
 
-    // Event listener for when the video ends
-    videoElement.addEventListener("ended", function () {
-        // Fade in the intro section after the video ends
-        introSection.classList.add("visible");
+    // When video ends, reveal intro + trigger typewriter effect
+    videoElement.addEventListener("ended", () => {
+        introSection.classList.add("visible"); // Fade in main section
 
-        // Start typing the text after a short delay to allow intro section to fade in
-        setTimeout(function () {
-            // Call the typing effect
-            typeText("dynamic-text", dynamicText, typingSpeed); // Make sure "dynamic-text" matches the ID
-        }, 800);  // Adjust delay to allow for fade-in effect
+        setTimeout(() => {
+            typeText("dynamic-text", dynamicText, typingSpeed); // Match the target ID
+        }, 800); // Wait a bit for fade-in animation
     });
 }
 
-// Function to determine the dynamic text to be typed (editable here)
+// ========== SET DYNAMIC MESSAGE ==========
 function getDynamicText() {
-    // You can change this text based on certain conditions, for example:
+    // Replace or expand with logic for dynamic messaging if needed
     return "WHERE ΔBSENCE SPEAKS";
-    // Or use other dynamic logic, like loading from a file, etc.
-    
 }
-

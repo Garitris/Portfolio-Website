@@ -1,14 +1,65 @@
 #store {
-   background-color: rgb(209, 209, 209);
-   height: 200vh;
-   margin: 0;
-   padding: 0;
-   overflow-x: hidden; /* disables horizontal scroll */
-   width: 100%;
- }
- 
- /* limit all elements' width to viewport */
- * {
-   box-sizing: border-box;
-   max-width: 100vw;
- }
+  background-color: rgb(209, 209, 209);
+  height: 200vh;
+  margin: 0;
+  padding: 0 10px; /* Horizontal padding around the container */
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Limit all elements' width to viewport */
+* {
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+.collectionGrid {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns, equal width */
+  grid-template-rows: repeat(2, auto); /* Set the height to auto to allow dynamic sizing */
+  gap: 10px; /* Fixed gap between quadrants */
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  align-items: start; /* Align items to the top of the grid cells */
+}
+
+.quadrant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #3b2fa3;
+  font-size: 2rem;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+/* Apply different sizes for each quadrant */
+.quadrant:nth-child(1) {
+  height: 500px; /* Custom height for the first quadrant */
+}
+
+.quadrant:nth-child(2) {
+  height: 500px; /* Custom height for the second quadrant */
+}
+
+.quadrant:nth-child(3) {
+  height: 500px; /* Custom height for the third quadrant */
+}
+
+.quadrant:nth-child(4) {
+  height: 500px; /* Custom height for the fourth quadrant */
+}
+
+.quadrant img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* Optional: scaling image */
+.quadrant:hover img {
+  transform: scale(1.1); /* Zoom effect on hover */
+}

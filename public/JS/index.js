@@ -1,35 +1,22 @@
-// Import necessary modules and functions
-import { setupBlackholeAnimation } from "./blackhole.js"; // Handle blackhole animation
-import { revealRedDot } from './redDotReveal.js'; // Red dot reveal function
-import { handleVideoEnd } from './dynamicTexts.js'; // Handle dynamic text typing after video ends
-import { handleMainGalleryAnimation } from './mainGallery.js'; // Handle second section (main gallery)
-import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle the scroll and hover effects of nav bar
-import { handleSectionTransition } from './sectionTransition.js'; // Import Section transition animation
-import { promotionalBarAnim } from "./promotionalBar.js";
+// ========== IMPORTS ==========
+// External modules for handling animations and behaviors
+import { setupBlackholeAnimation } from "./blackhole.js";         // Blackhole intro animation
+import { revealRedDot } from "./redDotReveal.js";                 // Reveal and initialize red dot behavior
+import { handleVideoEnd } from "./dynamicTexts.js";               // Typewriter effect after video finishes
+import { handleMainGalleryAnimation } from "./mainGallery.js";    // Gallery section fade-in logic
+import { handleNavbarScroll, handleNavbarHover } from "./navBar.js"; // Navbar shrink on scroll + hover color effect
+import { handleSectionTransition } from "./sectionTransition.js"; // Handles transition between sections
+import { promotionalBarAnim } from "./promotionalBar.js";         // Handles scroll animation for promo bar
 
-// Wait for the DOM content to load
+// ========== INITIALIZATION ==========
+// Wait for DOM to fully load before starting interactions
 document.addEventListener("DOMContentLoaded", () => {
-    // Start the blackhole animation
-    setupBlackholeAnimation(); 
-
-    // Execute the red dot reveal process (this will start movement after 10s)
-    revealRedDot();
-
-    // Initialize dynamic text functionality after video ends
-    handleVideoEnd("blackhole_video", "main_gallery", 100);
-
-    // Handle the second section (main gallery) animation after the video ends
-    handleMainGalleryAnimation(); // Controls the second section's reveal
-
-    // Initialize the scroll effect for the navbar
-    handleNavbarScroll();  // Start shrinking navbar on scroll
-
-    // Initialize the hover effect for navbar buttons
-    handleNavbarHover();   // Change button color on hover
-
-    // Handle the transition animation between Section 2 and Section 3
-    handleSectionTransition(); // New section transition functionality
-
-    // Handle animation for promotionalBar when user scroll
-    promotionalBarAnim();
+    setupBlackholeAnimation();            // Start the blackhole animation
+    revealRedDot();                       // Begin red dot reveal after animation delay
+    handleVideoEnd("blackhole_video", "main_gallery", 100); // Trigger text after video ends
+    handleMainGalleryAnimation();         // Animate main gallery entrance
+    handleNavbarScroll();                 // Enable scroll-responsive navbar behavior
+    handleNavbarHover();                  // Enable navbar hover animations
+    handleSectionTransition();            // Animate transition between gallery and next section
+    promotionalBarAnim();                 // Scroll-based promotional bar animation
 });
