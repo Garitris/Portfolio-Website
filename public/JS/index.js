@@ -18,5 +18,5 @@ document.addEventListener("DOMContentLoaded", () => {
     handleNavbarScroll();                 // Enable scroll-responsive navbar behavior
     handleNavbarHover();                  // Enable navbar hover animations
     handleSectionTransition();            // Animate transition between gallery and next section
-    promotionalBarAnim();                 // Scroll-based promotional bar animation
+    promotionalBarAnim();                 // Scroll-based promotional bar animation  
 });

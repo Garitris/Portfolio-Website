@@ -1,7 +1,7 @@
 // Import necessary modules and functions
 import { revealRedDot } from './redDotReveal.js'; // Import red dot logic
 import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle the scroll and hover effects of nav bar
-
+import { storeFlavourTextBeAbsent } from "./storeFlavourTextBeAbsent.js";
 // Wait for the DOM content to load
 document.addEventListener("DOMContentLoaded",() => {
     
@@ -13,4 +13,6 @@ document.addEventListener("DOMContentLoaded",() => {
 
     // Initialize the hover effect for navbar buttons
     handleNavbarHover();   // Change button color on hover
+
+    storeFlavourTextBeAbsent();
 })
