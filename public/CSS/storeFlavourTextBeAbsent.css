@@ -5,12 +5,11 @@
 }
 
 .storeFlavourTextBeAbsent {
-    position: fixed; /* Fixed to the viewport */
-    right: 23%; /* Position 2% from the right edge */
-    top: 13%; /* Position 2% from the bottom edge */
-    transform: translateX(50%); /* Adjust position to be exactly at the bottom-right corner */
-    font-size: 14vw;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.6s ease, transform 0.6s ease-out;
+  position: fixed;
+  top: 12%;
+  right: 1%;
+  transform: none; /* We'll override this dynamically */
+  font-size: 14vw;
+  pointer-events: none;
+  will-change: transform;
 }
