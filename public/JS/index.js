@@ -12,17 +12,16 @@ import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
 
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
-document.addEventListener("DOMContentLoaded", async () => {
-    // Wait for the black screen to fade
-    await showBlackScreenAndFade(); // Wait for fade-out to start
-
-    // Now start all other animations
-    setupBlackholeAnimation(); // Blackhole animation
-    revealRedDot();            // Red dot reveal
-    handleVideoEnd("blackhole_video", "main_gallery", 100); // Trigger text after video ends
-    handleMainGalleryAnimation(); // Main gallery entrance animation
-    handleNavbarScroll(); // Navbar shrink on scroll
-    handleNavbarHover();  // Navbar hover effects
-    handleSectionTransition(); // Section transition effects
-    promotionalBarAnim(); // Promo bar scroll animation
+document.addEventListener("DOMContentLoaded", () => {
+    showBlackScreenAndFade().then(() => {
+        // Now start all other functions
+        setupBlackholeAnimation();
+        revealRedDot();
+        handleVideoEnd("blackhole_video", "main_gallery", 100);
+        handleMainGalleryAnimation();
+        handleNavbarScroll();
+        handleNavbarHover();
+        handleSectionTransition();
+        promotionalBarAnim();
+    });
 });

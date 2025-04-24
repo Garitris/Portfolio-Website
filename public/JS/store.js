@@ -6,13 +6,12 @@ import { storeFlavourTextBeAbsent } from "./storeFlavourTextBeAbsent.js"; // Imp
 
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
-document.addEventListener("DOMContentLoaded", async () => {
-    // Wait for the black screen to fade
-    await showBlackScreenAndFade(); // Wait for fade-out to start
-    
-        // Now start all other animations
+document.addEventListener("DOMContentLoaded", () => {
+    showBlackScreenAndFade().then(() => {
+        // Now start all other functions
         revealRedDot(true);                     // Initialize red dot logic
         handleNavbarScroll();                   // Navbar scroll behavior
         handleNavbarHover();                    // Navbar hover behavior
         storeFlavourTextBeAbsent();             // Trigger store flavor text animation
     });
+});
