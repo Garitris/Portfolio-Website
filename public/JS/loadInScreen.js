@@ -1,38 +1,23 @@
-/* Function to create and manage the black screen */
-export const showBlackScreenAndFade = (onFadeStartCallback) => {
-    // Create the black screen element
-    const blackScreen = document.createElement('div');
-    blackScreen.id = 'blackScreen';  // Assign ID to the element
-    document.body.appendChild(blackScreen);  // Add to body
+// This function will return a promise that resolves after the fade-out is complete
+export const showBlackScreenAndFade = () => {
+    return new Promise((resolve) => {
+        const blackScreen = document.createElement('div');
+        blackScreen.id = 'blackScreen';  // Assign ID to the element
+        document.body.appendChild(blackScreen);  // Add to body
 
-    // Function to fade out the black screen
-    const fadeOutBlackScreen = () => {
-        // Set opacity to 0 to trigger the CSS transition
-        blackScreen.style.opacity = '0';
-
-        // Run any deferred logic just before fade starts
-        if (typeof onFadeStartCallback === 'function') {
-            onFadeStartCallback();
-        }
-
-        // After the fade-out is complete (2 seconds in this case), remove it from the DOM
+        // First, show the black screen for 1 second (idle time)
         setTimeout(() => {
-            blackScreen.remove(); // Clean up the DOM by removing the black screen
-        }, 2000);  // 2000ms matches the fade-out duration
-    };
+            // Start fading out after the idle time
+            blackScreen.style.transition = 'opacity 1s ease-in-out';  // Adjusted to 1s
+            blackScreen.style.opacity = '0';  // Begin fade-out
 
-    // Keep the black screen for a moment before fading
-    setTimeout(() => {
-        fadeOutBlackScreen();
-    }, 1000); // 1000ms idle duration before starting fade
+            // Start animations as soon as the fade-out starts
+            resolve();  // Resolve here to signal that animations can start
+
+            // Listen for the end of the transition to remove the element
+            blackScreen.addEventListener('transitionend', () => {
+                blackScreen.remove();  // Remove the black screen after the fade-out completes
+            });
+        }, 1000);  // Idle time before fade-out starts (1 second)
+    });
 };
-
-// When the page loads, trigger black screen and fade
-document.addEventListener("DOMContentLoaded", () => {
-    showBlackScreenAndFade();  // This version runs without any deferred logic
-});
-
-// Ensure black screen shows on page navigation (e.g., when back/forward buttons are used)
-window.addEventListener('popstate', () => {
-    showBlackScreenAndFade();
-});

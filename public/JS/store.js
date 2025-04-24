@@ -4,12 +4,15 @@ import { revealRedDot } from './redDotReveal.js';           // Import red dot lo
 import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle scroll and hover effects of nav bar
 import { storeFlavourTextBeAbsent } from "./storeFlavourTextBeAbsent.js"; // Import store flavour text animation
 
-// Wait for the DOM content to load
-document.addEventListener("DOMContentLoaded", () => {
-    showBlackScreenAndFade(() => {             
+// ========== INITIALIZATION ==========
+// Wait for DOM to fully load before starting interactions
+document.addEventListener("DOMContentLoaded", async () => {
+    // Wait for the black screen to fade
+    await showBlackScreenAndFade(); // Wait for fade-out to start
+    
+        // Now start all other animations
         revealRedDot(true);                     // Initialize red dot logic
         handleNavbarScroll();                   // Navbar scroll behavior
         handleNavbarHover();                    // Navbar hover behavior
         storeFlavourTextBeAbsent();             // Trigger store flavor text animation
     });
-});
