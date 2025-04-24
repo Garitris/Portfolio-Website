@@ -7,23 +7,19 @@ import { handleMainGalleryAnimation } from "./mainGallery.js";    // Gallery sec
 import { handleNavbarScroll, handleNavbarHover } from "./navBar.js"; // Navbar shrink on scroll + hover color effect
 import { handleSectionTransition } from "./sectionTransition.js"; // Handles transition between sections
 import { promotionalBarAnim } from "./promotionalBar.js";         // Handles scroll animation for promo bar
-import { showBlackScreenAndFade } from "./loadInScreen.js";
+import { showBlackScreenAndFade } from './loadInScreen.js';       // Handles loading anim
 
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
 document.addEventListener("DOMContentLoaded", () => {
-    setupBlackholeAnimation();            // Start the blackhole animation
-    revealRedDot();                       // Begin red dot reveal after animation delay
-    handleVideoEnd("blackhole_video", "main_gallery", 100); // Trigger text after video ends
-    handleMainGalleryAnimation();         // Animate main gallery entrance
-    handleNavbarScroll();                 // Enable scroll-responsive navbar behavior
-    handleNavbarHover();                  // Enable navbar hover animations
-    handleSectionTransition();            // Animate transition between gallery and next section
-    promotionalBarAnim();                 // Scroll-based promotional bar animation  
-    showBlackScreenAndFade();             // Display and fade the black screen
-});
-
-// Ensure black screen shows on page navigation (e.g., when back/forward buttons are used)
-window.addEventListener('popstate', () => {
-    showBlackScreenAndFade();  // Show the black screen on page navigation (back/forward)
+    showBlackScreenAndFade(() => {             // loading anim
+        setupBlackholeAnimation();             // Start the blackhole animation
+        revealRedDot();                        // Begin red dot reveal after animation delay
+        handleVideoEnd("blackhole_video", "main_gallery", 100); // Trigger text after video ends
+        handleMainGalleryAnimation();          // Animate main gallery entrance
+        handleNavbarScroll();                  // Enable scroll-responsive navbar behavior
+        handleNavbarHover();                   // Enable navbar hover animations
+        handleSectionTransition();             // Animate transition between gallery and next section
+        promotionalBarAnim();                  // Scroll-based promotional bar animation  
+    });
 });

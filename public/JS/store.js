@@ -1,22 +1,15 @@
 // Import necessary modules and functions
-import { revealRedDot } from './redDotReveal.js'; // Import red dot logic
-import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle the scroll and hover effects of nav bar
-import { storeFlavourTextBeAbsent } from "./storeFlavourTextBeAbsent.js";
-import { showBlackScreenAndFade } from './loadInScreen.js';
+import { showBlackScreenAndFade } from './loadInScreen.js'; // Import loading screen logic
+import { revealRedDot } from './redDotReveal.js';           // Import red dot logic
+import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle scroll and hover effects of nav bar
+import { storeFlavourTextBeAbsent } from "./storeFlavourTextBeAbsent.js"; // Import store flavour text animation
 
 // Wait for the DOM content to load
-document.addEventListener("DOMContentLoaded",() => {
-    
-    // Skip delay on the store page (no animation, reveal immediately)
-    revealRedDot(true); 
-
-    // Initialize the scroll effect for the navbar
-    handleNavbarScroll();  // Start shrinking navbar on scroll
-
-    // Initialize the hover effect for navbar buttons
-    handleNavbarHover();   // Change button color on hover
-
-    storeFlavourTextBeAbsent();
-
-    showBlackScreenAndFade();
-})
+document.addEventListener("DOMContentLoaded", () => {
+    showBlackScreenAndFade(() => {             
+        revealRedDot(true);                     // Initialize red dot logic
+        handleNavbarScroll();                   // Navbar scroll behavior
+        handleNavbarHover();                    // Navbar hover behavior
+        storeFlavourTextBeAbsent();             // Trigger store flavor text animation
+    });
+});
