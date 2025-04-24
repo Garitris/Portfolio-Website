@@ -1,4 +1,9 @@
-// Import necessary modules and functions
+// ========== IMPORTS ==========
+// External modules for handling animations and behaviors
+import { gsap } from "https://cdn.skypack.dev/gsap";
+// Make GSAP globally available
+window.gsap = gsap;
+
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Import loading screen logic
 import { revealRedDot } from './redDotReveal.js';           // Import red dot logic
 import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle scroll and hover effects of nav bar

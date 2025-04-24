@@ -1,5 +1,9 @@
 // ========== IMPORTS ==========
 // External modules for handling animations and behaviors
+import { gsap } from "https://cdn.skypack.dev/gsap";
+// Make GSAP globally available
+window.gsap = gsap;
+
 import { setupBlackholeAnimation } from "./blackhole.js"; // Blackhole intro animation
 import { revealRedDot } from "./redDotReveal.js";         // Red dot reveal logic
 import { handleVideoEnd } from "./dynamicTexts.js";       // Typewriter effect after video finishes
@@ -13,15 +17,19 @@ import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
 document.addEventListener("DOMContentLoaded", () => {
-    showBlackScreenAndFade().then(() => {
-        // Now start all other functions
-        setupBlackholeAnimation();
-        revealRedDot();
-        handleVideoEnd("blackhole_video", "main_gallery", 100);
-        handleMainGalleryAnimation();
-        handleNavbarScroll();
-        handleNavbarHover();
-        handleSectionTransition();
-        promotionalBarAnim();
-    });
+    showBlackScreenAndFade()
+        .then(() => {
+            // Start all other functions after the loading screen fades
+            setupBlackholeAnimation();
+            revealRedDot();
+            handleVideoEnd("blackhole_video", "main_gallery", 100); // Ensure these arguments are correct
+            handleMainGalleryAnimation();
+            handleNavbarScroll();
+            handleNavbarHover();
+            handleSectionTransition();
+            promotionalBarAnim();
+        })
+        .catch((error) => {
+            console.error("Error during initialization:", error);
+        });
 });

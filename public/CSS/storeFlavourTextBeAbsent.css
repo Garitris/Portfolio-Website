@@ -7,7 +7,7 @@
 .storeFlavourTextBeAbsent {
   position: fixed;
   top: 12%;
-  right: 1%;
+  left: 55%;
   transform: none; /* We'll override this dynamically */
   font-size: 14vw;
   pointer-events: none;
