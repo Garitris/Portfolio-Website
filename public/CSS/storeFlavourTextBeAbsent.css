@@ -1,16 +1,28 @@
-
 /* Ensure the element has no conflicting max-width */
 * {
   box-sizing: border-box;
 }
 
 .storeFlavourTextBeAbsent {
-position: fixed; /* Keeps it in the viewport */
-font-size: 10vw;
-pointer-events: none;
-will-change: transform;
-opacity: 1;
-/* Do not apply max-width restriction here to avoid constraints */
-max-width: none; 
+  position: fixed; /* Keeps it in the viewport */
+  font-size: 10vw; /* Responsive font size relative to viewport width */
+  pointer-events: none; /* Ensures no interaction with the element */
+  will-change: transform; /* Optimizes performance for transform animations */
+  opacity: 1; /* Fully visible */
+  max-width: none; /* Removes any constraints on the max width of the element */
 }
+
+/* Customize ScrollTrigger Debug Markers */
+.gsap-marker {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.7); /* Red background for markers */
+  border: 2px solid #ff0000; /* Red border to outline the markers */
+  color: white; /* Text color inside the marker */
+  padding: 5px; /* Padding around text */
+  font-size: 12px; /* Font size for the text inside markers */
+  font-family: Arial, sans-serif; /* Font style for the text */
+  font-weight: bold; /* Make the text bold */
+  z-index: 10000; /* Ensure markers appear above all other elements */
+}
+
 

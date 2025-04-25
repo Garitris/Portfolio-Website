@@ -37,7 +37,7 @@ export const storeFlavourTextBeAbsent = () => {
     const firstTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: element,
-        start: "top 20%",   // Trigger when scroll reaches 10% from the top of the page
+        start: "top 10%",   // Trigger when scroll reaches 10% from the top of the page
         markers: true,      // Debug markers
         id: "moveLeft",     // Debugging ID
         toggleActions: "play none none reverse",  // Reverse on scroll up
@@ -53,7 +53,7 @@ export const storeFlavourTextBeAbsent = () => {
       onStart: () => { console.log("First animation started: Moving left"); },
       onComplete: () => { console.log("First animation completed: Moved left"); }
     });
-    
+
     // SECOND animation (Left ➜ Top) - Move only after first animation is complete
     firstTimeline.to(element, {
       y: -270,              // Move to the top
