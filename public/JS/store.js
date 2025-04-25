@@ -1,8 +1,12 @@
 // ========== IMPORTS ==========
-// External modules for handling animations and behaviors
 import { gsap } from "https://cdn.skypack.dev/gsap";
-// Make GSAP globally available
+import { ScrollTrigger } from "https://cdn.skypack.dev/gsap/ScrollTrigger";
+
+// Make GSAP globally available (if needed elsewhere)
 window.gsap = gsap;
+// Register the plugin with GSAP
+gsap.registerPlugin(ScrollTrigger);
+
 
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Import loading screen logic
 import { revealRedDot } from './redDotReveal.js';           // Import red dot logic

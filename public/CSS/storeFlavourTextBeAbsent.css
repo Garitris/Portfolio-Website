@@ -1,15 +1,16 @@
-/* Limit all elements' width to viewport */
+
+/* Ensure the element has no conflicting max-width */
 * {
-    box-sizing: border-box;
-    max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .storeFlavourTextBeAbsent {
-  position: fixed;
-  top: 12%;
-  left: 55%;
-  transform: none; /* We'll override this dynamically */
-  font-size: 14vw;
-  pointer-events: none;
-  will-change: transform;
+position: fixed; /* Keeps it in the viewport */
+font-size: 10vw;
+pointer-events: none;
+will-change: transform;
+opacity: 1;
+/* Do not apply max-width restriction here to avoid constraints */
+max-width: none; 
 }
+

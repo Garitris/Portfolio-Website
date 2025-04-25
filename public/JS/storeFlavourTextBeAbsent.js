@@ -1,4 +1,7 @@
 import { gsap } from "https://cdn.skypack.dev/gsap";
+import { ScrollTrigger } from "https://cdn.skypack.dev/gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const storeFlavourTextBeAbsent = () => {
   const element = document.querySelector('.storeFlavourTextBeAbsent');
@@ -7,88 +10,57 @@ export const storeFlavourTextBeAbsent = () => {
     return;
   }
 
-  // Define scroll thresholds and positions
-  const firstThreshold = 0;  // Scroll position for the first move
-  const secondThreshold = 300; // Scroll position for the second move
+  // Set the initial position of the element using gsap.set()
+  gsap.set(element, {
+    x: 1280,           // Start from the original position horizontally (off-screen to the right)
+    y: 350,            // Start 120px from the top of the page (adjust as necessary)
+    opacity: 1,        // Ensure it is visible
+  });
 
-  const firstPosition = { x: -1000, y: 0 };  // Target for first move
-  const secondPosition = { x: -1000, y: -400 }; // Target for second move
+  console.log('Initial position set: ', element.style);
 
-  let lastScrollY = 0; // Track last scroll position to detect scroll direction
-  let isAnimating = false; // Flag to prevent overlapping animations
+  // Scroll state flag to ensure animations only trigger after user scrolls
+  let scrollTriggered = false;
 
-  const updatePosition = () => {
-    const scrollY = window.scrollY;
-
-    // Scroll Direction: If user scrolls down
-    if (scrollY > lastScrollY && !isAnimating) {
-      // Move to the first position when user scrolls down past the first threshold
-      if (scrollY > firstThreshold && scrollY <= secondThreshold) {
-        isAnimating = true; // Lock the animation until it's complete
-        gsap.to(element, {
-          x: firstPosition.x,
-          y: firstPosition.y,
-          duration: 2,
-          ease: "power2.out",
-          overwrite: "auto",
-          onComplete: () => {
-            isAnimating = false; // Unlock the animation after it's done
-          }
-        });
-      }
-
-      // Move to the second position when user scrolls down past the second threshold
-      if (scrollY > secondThreshold && !isAnimating) {
-        isAnimating = true; // Lock the animation until it's complete
-        gsap.to(element, {
-          x: secondPosition.x,
-          y: secondPosition.y,
-          duration: 1.5,
-          ease: "power2.out",
-          overwrite: "auto",
-          onComplete: () => {
-            isAnimating = false; // Unlock the animation after it's done
-          }
-        });
-      }
-    } 
-
-    // Scroll Direction: If user scrolls up
-    else if (scrollY < lastScrollY && !isAnimating) {
-      // Return to the first position when user scrolls up past the second threshold
-      if (scrollY <= secondThreshold && scrollY > firstThreshold) {
-        isAnimating = true; // Lock the animation until it's complete
-        gsap.to(element, {
-          x: firstPosition.x,
-          y: firstPosition.y,
-          duration: 1,
-          ease: "power2.out",
-          overwrite: "auto",
-          onComplete: () => {
-            isAnimating = false; // Unlock the animation after it's done
-          }
-        });
-      }
-
-      // Return to the initial position when user scrolls up before the first threshold
-      if (scrollY <= firstThreshold && !isAnimating) {
-        isAnimating = true; // Lock the animation until it's complete
-        gsap.to(element, {
-          x: 0,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-          overwrite: "auto",
-          onComplete: () => {
-            isAnimating = false; // Unlock the animation after it's done
-          }
-        });
-      }
+  // Add scroll listener to detect user scrolling
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 0 && !scrollTriggered) {
+      console.log("Page is scrolled. Now ready for animation.");
+      scrollTriggered = true; // Set the flag so this doesn't log again
+      initializeAnimations(); // Start animations when scrolling happens
     }
+  });
 
-    lastScrollY = scrollY; // Update the last scroll position
-  };
+  // Function to initialize the animations after scrolling starts
+  function initializeAnimations() {
+    // FIRST animation (Right ➜ Left)
+    const firstTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        start: "top 20%",   // Trigger when scroll reaches 10% from the top of the page
+        markers: true,      // Debug markers
+        id: "moveLeft",     // Debugging ID
+        toggleActions: "play none none reverse",  // Reverse on scroll up
+        onEnter: () => { console.log("First animation triggered: Moving left"); },
+        onLeave: () => { console.log("First animation completed or reversed"); },
+      }
+    });
 
-  window.addEventListener('scroll', updatePosition);
-  updatePosition(); // Initial call to set the position if needed
+    firstTimeline.to(element, {
+      x: 0,              // Move to the left (off-screen left)
+      duration: 1.5,       // Duration of the animation (fixed time)
+      ease: "power3.inOut",  // Easing to smooth the start and end
+      onStart: () => { console.log("First animation started: Moving left"); },
+      onComplete: () => { console.log("First animation completed: Moved left"); }
+    });
+    
+    // SECOND animation (Left ➜ Top) - Move only after first animation is complete
+    firstTimeline.to(element, {
+      y: -270,              // Move to the top
+      duration: 1.2,          // Duration of the animation (fixed time)
+      ease: "power3.inOut",  // Easing to smooth the start and end
+      onStart: () => { console.log("Second animation started: Moving up"); },
+      onComplete: () => { console.log("Second animation completed: Moved up"); }
+    });
+  }
 };
