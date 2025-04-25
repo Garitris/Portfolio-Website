@@ -17,6 +17,10 @@ import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
 document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener('beforeunload', function() {
+        window.scrollTo(0, 0);
+    });
+      
     showBlackScreenAndFade()
         .then(() => {
             // Start all other functions after the loading screen fades

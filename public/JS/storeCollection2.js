@@ -3,17 +3,17 @@ import { ScrollTrigger } from "https://cdn.skypack.dev/gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const storeFlavourTextBeAbsent = () => {
-  const element = document.querySelector('.storeFlavourTextBeAbsent');
+export const handleStoreCollection2Anim = () => {
+  const element = document.querySelector('.quadrant:nth-child(2)');
   if (!element) {
-    console.warn('storeFlavourTextBeAbsent element not found.');
+    console.warn('quadrant:nth-child(2) element not found.');
     return;
   }
 
   // Set the initial position of the element using gsap.set()
   gsap.set(element, {
-    x: 1280,           // Start from the original position horizontally (off-screen to the right)
-    y: 350,            // Start 120px from the top of the page (adjust as necessary)
+    x: 700,           // Start from the original position horizontally (off-screen to the right)
+    y: 0,            // Start 120px from the top of the page (adjust as necessary)
     opacity: 1,        // Ensure it is visible
   });
 
@@ -37,7 +37,7 @@ export const storeFlavourTextBeAbsent = () => {
     const firstTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: element,
-        start: "top 30%",   // Trigger when scroll reaches 10% from the top of the page
+        start: "top 0%",   // Trigger when scroll reaches 10% from the top of the page
         markers: true,      // Debug markers
         id: "moveLeft",     // Debugging ID
         toggleActions: "play none none reverse",  // Reverse on scroll up
@@ -47,8 +47,8 @@ export const storeFlavourTextBeAbsent = () => {
     });
 
     firstTimeline.to(element, {
-      x: 0,              // Move to the left (off-screen left)
-      duration: 1.5,       // Duration of the animation (fixed time)
+      x: -540,              // Move to the left (off-screen left)
+      duration: 1.4,       // Duration of the animation (fixed time)
       ease: "power3.inOut",  // Easing to smooth the start and end
       onStart: () => { console.log("First animation started: Moving left"); },
       onComplete: () => { console.log("First animation completed: Moved left"); }
@@ -56,7 +56,7 @@ export const storeFlavourTextBeAbsent = () => {
 
     // SECOND animation (Left ➜ Top) - Move only after first animation is complete
     firstTimeline.to(element, {
-      y: -150,              // Move to the top
+      y: 0,              // Move to the top
       duration: 1,          // Duration of the animation (fixed time)
       ease: "power3.inOut",  // Easing to smooth the start and end
       onStart: () => { console.log("Second animation started: Moving up"); },

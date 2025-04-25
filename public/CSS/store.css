@@ -1,9 +1,10 @@
 #store {
   background-color: rgb(209, 209, 209);
-  height: 600vh;
+  height: 200vh;
   margin: 0;
   padding: 0 10px; /* Horizontal padding around the container */
   overflow-x: hidden;
+  overflow-y: hidden;
   width: 100%;
 }
 
@@ -22,6 +23,8 @@
   width: 100%;
   height: 100vh; /* Full viewport height */
   align-items: start; /* Align items to the top of the grid cells */
+  overflow-y: hidden;
+  position: fixed;
 }
 
 .quadrant {
@@ -32,26 +35,30 @@
   color: #3b2fa3;
   font-size: 2rem;
   border: 1px solid #333;
-  overflow: hidden;
+  
 }
 
 /* Apply different sizes for each quadrant */
 .quadrant:nth-child(1) {
-  height: 700px; /* Custom height for the first quadrant */
+  height: 870px; /* Custom height for the first quadrant */
+  width: 1200px;
+  will-change: transform; /* “Hey, I’m going to change the transform property on this element soon — so get ready.” */
 }
 
 .quadrant:nth-child(2) {
-  height: 700px; /* Custom height for the second quadrant */
+  height: 870px; /* Custom height for the second quadrant */
+  width: 1200px;
+  will-change: transform;
 }
 
 .quadrant:nth-child(3) {
   height: 700px; /* Custom height for the third quadrant */
-  margin-top: 2%;
+
 }
 
 .quadrant:nth-child(4) {
   height: 700px; /* Custom height for the fourth quadrant */
-  margin-top: 2%;
+ 
 }
 
 .quadrant img {
