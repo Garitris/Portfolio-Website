@@ -14,6 +14,8 @@ import { handleNavbarScroll, handleNavbarHover } from './navBar.js'; // Handle s
 import { storeFlavourTextBeAbsent } from './storeFlavourTextBeAbsent.js'; // Import store flavour text animation
 import { handleStoreCollection1Anim } from './storeCollection1.js'; // Import store collection 1 logic
 import { handleStoreCollection2Anim } from './storeCollection2.js'; // Import store collection 2 logic
+import { handleStoreInfo1Anim } from './storeInfo1.js'; // Import store collection 1 logic
+import { handleStoreInfo2Anim } from './storeInfo2.js'; // Import store collection 2 logic
 
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
@@ -30,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
         storeFlavourTextBeAbsent();             // Trigger store flavor text animation
         handleStoreCollection1Anim();           // Store Collection1 logic
         handleStoreCollection2Anim();           // Store Collection2 logic
+        handleStoreInfo1Anim();
+        handleStoreInfo2Anim();
     });
 });
 

@@ -1,12 +1,12 @@
 import { animateElementOnScroll } from './storePageScrollAnimationsFunction.js';
 
-export const storeFlavourTextBeAbsent = () => {
+export const handleStoreInfo2Anim = () => {
   animateElementOnScroll({
-    selector: '.storeFlavourTextBeAbsent',
+    selector: '.info2',
     initialX: 1280,
-    initialY: 350,
+    initialY: 900,
     moveToX: 50,
-    moveToY: -150,
+    moveToY: 420,
     firstDuration: 1.5,
     secondDuration: 1,
     startTrigger: "top top%",

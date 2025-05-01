@@ -1,78 +1,55 @@
 #store {
-  background-color: rgb(209, 209, 209);
-  height: 200vh;
+  background-color: rgb(70, 70, 70);
+  height: 100vh;
   margin: 0;
-  padding: 0 10px; /* Horizontal padding around the container */
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
 }
 
-/* Limit all elements' width to viewport */
-* {
-  box-sizing: border-box;
-  max-width: 100vw;
-}
 
-.collectionGrid {
+.collections {
   margin-top: 4%;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 columns, equal width */
-  grid-template-rows: repeat(2, auto); /* Set the height to auto to allow dynamic sizing */
-  gap: 1%; /* Fixed gap between quadrants */
-  width: 100%;
-  height: 100vh; /* Full viewport height */
-  align-items: start; /* Align items to the top of the grid cells */
   overflow-y: hidden;
-  position: fixed;
-}
-
-.quadrant {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  color: #3b2fa3;
-  font-size: 2rem;
-  border: 1px solid #333;
-  
+  width: 100vw;
+  height: auto
 }
 
 /* Apply different sizes for each quadrant */
-.quadrant:nth-child(1) {
+.collection1 {
+  position: fixed;
   height: 870px; /* Custom height for the first quadrant */
   width: 1200px;
+  background-color: rgb(48, 48, 48);
   will-change: transform; /* “Hey, I’m going to change the transform property on this element soon — so get ready.” */
 }
 
-.quadrant:nth-child(2) {
+.collection2 {
+  position: fixed;
   height: 870px; /* Custom height for the second quadrant */
   width: 1200px;
+  background-color: rgb(48, 48, 48);
   will-change: transform;
 }
 
-.quadrant:nth-child(3) {
-  height: 700px; /* Custom height for the third quadrant */
-
+.info1 {
+  position: fixed;
+  height: 450px; /* Custom height for the third quadrant */
+  width: 600px;
+  background-color: rgb(48, 48, 48);
+  will-change: transform;
 }
 
-.quadrant:nth-child(4) {
-  height: 700px; /* Custom height for the fourth quadrant */
- 
+.info2 {
+  position: fixed;
+  height: 450px; /* Custom height for the fourth quadrant */
+  width: 600px;
+  background-color: rgb(48, 48, 48);
+  will-change: transform;
 }
 
-.quadrant img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-/* Optional: scaling image */
-.quadrant:hover img {
-  transform: scale(1.1); /* Zoom effect on hover */
-}
-
-.allItems {
-  margin-top: 70%;
+#scroll-buffer {
+  height: 1px; /* small but enough to enable scroll */
+  margin-top: 150vh; /* adds scroll space visually below the fold */
 }

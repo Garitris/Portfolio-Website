@@ -1,0 +1,31 @@
+
+ 
+/* Add a min-width for extra safety */
+.scroll-indicator {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+    width: 10px;
+    min-width: 10px; /* Ensure it's never 0px wide */
+  }
+  
+  
+/* Indicator sections (just a small bar) */
+.indicator-section {
+    width: 10px;
+    height: 30px;
+    background-color: red;  /* Make sure this color is visible */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Active state for section 2 */
+  .indicator-section.active {
+    background-color: green;  /* Change the color to green when active */
+  }
+  
+  
