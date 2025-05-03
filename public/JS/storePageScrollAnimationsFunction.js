@@ -1,5 +1,88 @@
 import { gsap } from "https://cdn.skypack.dev/gsap";
 
+// Shared Scroll Controller Module
+const ScrollController = (() => {
+  let triggered = false;           // Tracks if the downward animation has been triggered
+  let isAnimating = false;         // Prevents overlapping animations
+  let lastScrollY = window.scrollY;
+
+  const downCallbacks = [];        // Stores all 'scroll down' animation callbacks
+  const upCallbacks = [];          // Stores all 'scroll up' animation callbacks
+
+  const lockScroll = () => {
+    document.body.style.overflow = 'hidden';
+    console.log("Scroll locked");
+  };
+
+  const unlockScroll = () => {
+    document.body.style.overflow = '';
+    console.log("Scroll unlocked");
+  };
+
+  const handleScroll = (event) => {
+    const currentScrollY = window.scrollY;
+    const deltaY = event.deltaY || (event.touches?.[0]?.clientY || 0);
+    const isScrollingDown = currentScrollY > lastScrollY || deltaY > 0;
+
+    console.log(`Scroll detected — Down? ${isScrollingDown}, Current Y: ${currentScrollY}`);
+
+    if (isAnimating) {
+      console.log("Animation in progress, scroll ignored");
+      event.preventDefault();
+      return;
+    }
+
+    // Scroll Down Sequence
+    if (isScrollingDown && !triggered) {
+      console.log("Triggering DOWN animation");
+      triggered = true;
+      isAnimating = true;
+      lockScroll();
+
+      Promise.all(downCallbacks.map(cb => cb())).then(() => {
+        console.log("DOWN animation complete");
+        isAnimating = false;
+        unlockScroll();
+      });
+
+      event.preventDefault();
+    }
+
+    // Scroll Up Sequence
+    else if (!isScrollingDown && triggered) {
+      console.log("Triggering UP animation");
+      isAnimating = true;
+      lockScroll();
+
+      Promise.all(upCallbacks.map(cb => cb())).then(() => {
+        console.log("UP animation complete");
+        isAnimating = false;
+        triggered = false;
+        unlockScroll();
+      });
+
+      event.preventDefault();
+    }
+
+    lastScrollY = currentScrollY;
+  };
+
+  const init = () => {
+    document.addEventListener("wheel", handleScroll, { passive: false });
+    document.addEventListener("touchstart", handleScroll, { passive: false });
+    console.log("ScrollController initialized");
+  };
+
+  const register = (onDown, onUp) => {
+    downCallbacks.push(onDown);
+    upCallbacks.push(onUp);
+    console.log("Animation registered");
+  };
+
+  return { init, register };
+})();
+
+// Element Animation Registration
 export const animateElementOnScroll = ({
   selector,
   initialX = 0,
@@ -16,97 +99,54 @@ export const animateElementOnScroll = ({
     return;
   }
 
-  // Set initial state
+  // Set the initial position and visibility
   gsap.set(element, {
     x: initialX,
     y: initialY,
     opacity: 1,
   });
 
-  let triggered = false;  // To track if the animation has already been triggered
-  let isAnimating = false;  // Flag to track if animation is ongoing
-  let lastScrollY = window.scrollY;  // To track the last scroll position
+  console.log(`Initialized element: ${selector}`);
 
-  const startAnimation = (event) => {
-    const currentScrollY = window.scrollY;
-    const deltaY = event.deltaY || (event.touches ? event.touches[0].clientY : 0); // Get scroll delta
-
-    // Check scroll direction
-    const isScrollingDown = currentScrollY > lastScrollY || deltaY > 0;
-    console.log(`Scroll direction: ${isScrollingDown ? "Down" : "Up"}`);
-
-    // If animation is not running and the scroll direction is appropriate
-    if (!isAnimating) {
-      // Trigger the animation if scrolling down and no animation has been triggered yet
-      if (isScrollingDown && !triggered) {
-        triggered = true;
-        console.log("Scrolling Down: Triggering animation");
-
-        isAnimating = true;  // Set animation as in progress
-
-        const tl = gsap.timeline()
-          .to(element, {
-            x: moveToX,
-            duration: firstDuration,
-            ease,
-          })
-          .to(element, {
-            y: moveToY,
-            duration: secondDuration,
-            ease,
-          });
-
-        // Use total timeline duration to determine when to re-enable scroll detection
-        const totalDuration = tl.duration() * 1150;
-        setTimeout(() => {
-          isAnimating = false;
-          console.log("Animation completed: Scroll is now re-enabled");
-        }, totalDuration);
-      } 
-      // Trigger the reverse animation if scrolling up
-      else if (!isScrollingDown && triggered) {
-        console.log("Scrolling Up: Reversing animation");
-
-        isAnimating = true;  // Set animation as in progress
-
-        // Reverse order of animation on scroll up: first move down, then move right
-        const tl = gsap.timeline()
-          .to(element, {
-            y: initialY, // First move down
-            duration: secondDuration,
-            ease,
-          })
-          .to(element, {
-            x: initialX, // Then move right
-            duration: firstDuration,
-            ease,
-          });
-
-        // Use total timeline duration to determine when to re-enable scroll detection
-        const totalDuration = tl.duration() * 1150;
-        setTimeout(() => {
-          isAnimating = false;
-          triggered = false; // Reset triggered for future scroll down
-          console.log("Animation completed: Scroll is now re-enabled");
-        }, totalDuration);
-      }
-    }
-
-    // Update last scroll position for the next event
-    lastScrollY = currentScrollY;
-
-    // Prevent default scrolling behavior only when animation is happening
-    if (isAnimating) {
-      event.preventDefault();
-    }
+  // Animation when scrolling DOWN
+  const animateIn = () => {
+    return new Promise((resolve) => {
+      console.log(`⬇️ Animating ${selector} in`);
+      gsap.timeline({ onComplete: resolve })
+        .to(element, {
+          x: moveToX,
+          duration: firstDuration,
+          ease,
+        })
+        .to(element, {
+          y: moveToY,
+          duration: secondDuration,
+          ease,
+        });
+    });
   };
 
-  const addEventListeners = () => {
-    // Detect wheel and touch events for scroll direction
-    document.addEventListener("wheel", startAnimation, { passive: false });
-    document.addEventListener("touchstart", startAnimation, { passive: false });
+  // Animation when scrolling UP
+  const animateOut = () => {
+    return new Promise((resolve) => {
+      console.log(`Animating ${selector} out`);
+      gsap.timeline({ onComplete: resolve })
+        .to(element, {
+          y: initialY,
+          duration: secondDuration,
+          ease,
+        })
+        .to(element, {
+          x: initialX,
+          duration: firstDuration,
+          ease,
+        });
+    });
   };
 
-  // Add the event listeners when the page loads
-  addEventListeners();
+  // Register the element's animations to the shared controller
+  ScrollController.register(animateIn, animateOut);
 };
+
+// Call once after DOM is ready
+ScrollController.init();
