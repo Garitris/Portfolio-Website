@@ -16,6 +16,7 @@ import { handleStoreCollection1Anim } from './storeCollection1.js'; // Import st
 import { handleStoreCollection2Anim } from './storeCollection2.js'; // Import store collection 2 logic
 import { handleStoreInfo1Anim } from './storeInfo1.js'; // Import store collection 1 logic
 import { handleStoreInfo2Anim } from './storeInfo2.js'; // Import store collection 2 logic
+import { initializeScrollIndicator } from './scrollIndicatorBar.js'; // Import Scroll Indicator Logic
 
 // ========== INITIALIZATION ==========
 // Wait for DOM to fully load before starting interactions
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         handleStoreCollection2Anim();           // Store Collection2 logic
         handleStoreInfo1Anim();
         handleStoreInfo2Anim();
+        initializeScrollIndicator();            // Store Scroll Bar Indicator
     });
 });
 

@@ -1,21 +1,22 @@
 import { gsap } from "https://cdn.skypack.dev/gsap";
 
-// Shared Scroll Controller Module
+// ScrollController Module (embedded)
 const ScrollController = (() => {
-  let triggered = false;           // Tracks if the downward animation has been triggered
-  let isAnimating = false;         // Prevents overlapping animations
+  let isAnimating = false;
   let lastScrollY = window.scrollY;
+  const animationPairs = [];
 
-  const downCallbacks = [];        // Stores all 'scroll down' animation callbacks
-  const upCallbacks = [];          // Stores all 'scroll up' animation callbacks
+  const register = (animateIn, animateOut) => {
+    animationPairs.push({ animateIn, animateOut });
+  };
 
   const lockScroll = () => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     console.log("Scroll locked");
   };
 
   const unlockScroll = () => {
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
     console.log("Scroll unlocked");
   };
 
@@ -24,46 +25,25 @@ const ScrollController = (() => {
     const deltaY = event.deltaY || (event.touches?.[0]?.clientY || 0);
     const isScrollingDown = currentScrollY > lastScrollY || deltaY > 0;
 
-    console.log(`Scroll detected — Down? ${isScrollingDown}, Current Y: ${currentScrollY}`);
-
     if (isAnimating) {
       console.log("Animation in progress, scroll ignored");
       event.preventDefault();
       return;
     }
 
-    // Scroll Down Sequence
-    if (isScrollingDown && !triggered) {
-      console.log("Triggering DOWN animation");
-      triggered = true;
-      isAnimating = true;
-      lockScroll();
+    isAnimating = true;
+    lockScroll();
 
-      Promise.all(downCallbacks.map(cb => cb())).then(() => {
-        console.log("DOWN animation complete");
-        isAnimating = false;
-        unlockScroll();
-      });
+    const animationPromises = animationPairs.map(({ animateIn, animateOut }) =>
+      isScrollingDown ? animateIn() : animateOut()
+    );
 
-      event.preventDefault();
-    }
+    Promise.all(animationPromises).then(() => {
+      isAnimating = false;
+      unlockScroll();
+    });
 
-    // Scroll Up Sequence
-    else if (!isScrollingDown && triggered) {
-      console.log("Triggering UP animation");
-      isAnimating = true;
-      lockScroll();
-
-      Promise.all(upCallbacks.map(cb => cb())).then(() => {
-        console.log("UP animation complete");
-        isAnimating = false;
-        triggered = false;
-        unlockScroll();
-      });
-
-      event.preventDefault();
-    }
-
+    event.preventDefault();
     lastScrollY = currentScrollY;
   };
 
@@ -73,13 +53,10 @@ const ScrollController = (() => {
     console.log("ScrollController initialized");
   };
 
-  const register = (onDown, onUp) => {
-    downCallbacks.push(onDown);
-    upCallbacks.push(onUp);
-    console.log("Animation registered");
+  return {
+    register,
+    init,
   };
-
-  return { init, register };
 })();
 
 // Element Animation Registration
@@ -99,7 +76,6 @@ export const animateElementOnScroll = ({
     return;
   }
 
-  // Set the initial position and visibility
   gsap.set(element, {
     x: initialX,
     y: initialY,
@@ -108,10 +84,9 @@ export const animateElementOnScroll = ({
 
   console.log(`Initialized element: ${selector}`);
 
-  // Animation when scrolling DOWN
   const animateIn = () => {
     return new Promise((resolve) => {
-      console.log(`⬇️ Animating ${selector} in`);
+      console.log(`Animating ${selector} in`);
       gsap.timeline({ onComplete: resolve })
         .to(element, {
           x: moveToX,
@@ -126,7 +101,6 @@ export const animateElementOnScroll = ({
     });
   };
 
-  // Animation when scrolling UP
   const animateOut = () => {
     return new Promise((resolve) => {
       console.log(`Animating ${selector} out`);
@@ -144,9 +118,8 @@ export const animateElementOnScroll = ({
     });
   };
 
-  // Register the element's animations to the shared controller
   ScrollController.register(animateIn, animateOut);
 };
 
-// Call once after DOM is ready
+// Call after DOM is ready
 ScrollController.init();
