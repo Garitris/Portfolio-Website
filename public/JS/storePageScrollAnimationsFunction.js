@@ -44,7 +44,7 @@ export const animateElementOnScroll = ({
 
         isAnimating = true;  // Set animation as in progress
 
-        gsap.timeline()
+        const tl = gsap.timeline()
           .to(element, {
             x: moveToX,
             duration: firstDuration,
@@ -54,12 +54,14 @@ export const animateElementOnScroll = ({
             y: moveToY,
             duration: secondDuration,
             ease,
-          })
-          .eventCallback("onComplete", () => {
-            // Animation finished, allow scroll to be detected again
-            isAnimating = false;
-            console.log("Animation completed: Scroll is now re-enabled");
           });
+
+        // Use total timeline duration to determine when to re-enable scroll detection
+        const totalDuration = tl.duration() * 1150;
+        setTimeout(() => {
+          isAnimating = false;
+          console.log("Animation completed: Scroll is now re-enabled");
+        }, totalDuration);
       } 
       // Trigger the reverse animation if scrolling up
       else if (!isScrollingDown && triggered) {
@@ -68,7 +70,7 @@ export const animateElementOnScroll = ({
         isAnimating = true;  // Set animation as in progress
 
         // Reverse order of animation on scroll up: first move down, then move right
-        gsap.timeline()
+        const tl = gsap.timeline()
           .to(element, {
             y: initialY, // First move down
             duration: secondDuration,
@@ -78,14 +80,15 @@ export const animateElementOnScroll = ({
             x: initialX, // Then move right
             duration: firstDuration,
             ease,
-          })
-          .eventCallback("onComplete", () => {
-            // Animation finished, allow scroll to be detected again
-            isAnimating = false;
-            console.log("Animation completed: Scroll is now re-enabled");
           });
 
-        triggered = false; // Reset triggered for future scroll down
+        // Use total timeline duration to determine when to re-enable scroll detection
+        const totalDuration = tl.duration() * 1150;
+        setTimeout(() => {
+          isAnimating = false;
+          triggered = false; // Reset triggered for future scroll down
+          console.log("Animation completed: Scroll is now re-enabled");
+        }, totalDuration);
       }
     }
 

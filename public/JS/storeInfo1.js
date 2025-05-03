@@ -9,7 +9,6 @@ export const handleStoreInfo1Anim = () => {
     moveToY: -1300,
     firstDuration: 1.5,
     secondDuration: 1,
-    startTrigger: "top top%",
     scrollMarkerId: "moveLeft2", // Different ID for debugging markers
     ease: "power3.inOut", 
   });

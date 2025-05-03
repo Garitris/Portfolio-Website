@@ -5,36 +5,39 @@ export const handleNavbarScroll = () => {
     // Select the navbar element by its ID
     const section = document.querySelector('#top_nav_bar');
 
-    const nav = document.querySelector('#top_nav_bar');
-    nav.style.top = '35px'; // Set it right away
+    // Select the scrollable container (assuming #store has overflow-y: scroll)
+    const store = document.body;
 
-    // Add an event listener for the scroll event
-    window.addEventListener('scroll', () => {
-        // Get the current scroll position on the Y-axis
-        const scrollPosition = window.scrollY;
+    // Set initial top position of the navbar
+    section.style.top = '35px';
+
+    // Add an event listener to the scrollable container instead of the window
+    store.addEventListener('scroll', () => {
+        // Get the current scroll position on the Y-axis of the #store container
+        const scrollPosition = store.scrollTop;
 
         // Calculate the new width percentage based on scroll position
-        // As scroll position increases, the navbar will shrink
-        let widthPercentage = 100 - (scrollPosition / 10); // Adjust the factor to control the shrinking speed
+        // As scroll position increases, the navbar will shrink in width
+        let widthPercentage = 100 - (scrollPosition / 10); // Adjust factor to control shrinking speed
 
-        // Ensure the width does not go below a certain value (e.g., 98%)
+        // Prevent the width from shrinking below 98%
         if (widthPercentage < 98) {
             widthPercentage = 98;
         }
 
-        // Apply the new width to the navbar section
+        // Apply the new width to the navbar
         section.style.width = `${widthPercentage}%`;
 
-        // Calculate the new top margin based on scroll position
-        // The navbar's top margin will shrink as the user scrolls down
-        let topMargin = 30 - (scrollPosition / 5); // Adjust the factor to control the shrinking speed of the top margin
+        // Calculate the new top margin (vertical position) based on scroll position
+        // The navbar moves up slightly as user scrolls
+        let topMargin = 30 - (scrollPosition / 5); // Adjust factor to control vertical movement speed
 
-        // Ensure the top margin does not shrink below 8px
+        // Prevent the top margin from going below 8px
         if (topMargin < 8) {
             topMargin = 8;
         }
 
-        // Apply the new top margin to the navbar section
+        // Apply the new top position to the navbar
         section.style.top = `${topMargin}px`;
     });
 };

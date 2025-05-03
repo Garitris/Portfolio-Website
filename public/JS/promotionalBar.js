@@ -7,13 +7,19 @@ export const promotionalBarAnim = () => {
     // Ensure the section exists
     if (!section) return;
 
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
+    // Use the scrollable container (body)
+    const store = document.body;
 
-        // Gradually move the bar upwards
-        const topOffset = Math.max(-scrollPosition / 1, -100); // prevent from going too far
+    // Set initial position
+    section.style.top = '0px';
 
-        // Apply the position to the promotional bar
+    // Add scroll listener on the same container used by navbar
+    store.addEventListener('scroll', () => {
+        const scrollPosition = store.scrollTop;
+
+        // Move the promo bar upwards slightly as you scroll
+        const topOffset = Math.max(-scrollPosition / 1, -100);
+
         section.style.top = `${topOffset}px`;
     });
 };
