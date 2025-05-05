@@ -9,47 +9,50 @@ export const initializeScrollIndicator = () => {
         return;
     }
 
-    // Set initial positions
-    const initialTop = { x: -8, y: 50 };
+    // Set initial positions and sizes
+    const initialTop = { x: 0, y: 50 };
     const initialBottom = { x: 0, y: 50 };
+    const initialSize = { width: 12, height: 12 }; // Starting size in pixels
+    const shrinkSize = 0.5;    // Scale factor for shrinking
+    const growSize = 2;       // Scale factor for growing
 
-    gsap.set(dotTop, { ...initialTop, scale: 1 });
-    gsap.set(dotBottom, { ...initialBottom, scale: 1 });
+    // Double size for top dot initially
+    const initialTopSize = 2; // Scale factor (initial size of 2x)
 
-    // Adjustable movement for Phase 1
-    const moveAmountTop = 19;     // Move dotTop downward by this amount
-    const moveAmountBottom = 19;  // Move dotBottom upward by this amount
+    gsap.set(dotTop, { ...initialTop, scale: initialTopSize });
+    gsap.set(dotBottom, { ...initialBottom, scale: 1 }); // No scaling initially for bottom dot
+
+    const moveAmountTop = 16;
+    const moveAmountBottom = 16;
 
     // Scroll Down Animation
     const activateScrollDown = () => {
         const tl = gsap.timeline();
 
-        // Phase 1: move independently by specified amounts
+        // Phase 1: dots shrink and move
         tl.to(dotTop, {
             y: initialTop.y + moveAmountTop,
+            scale: shrinkSize, // Shrink to 50% of original size
             duration: 1.55,
-            scale: 0.5,
             ease: "power3.inOut",
         }, 0);
 
         tl.to(dotBottom, {
             y: initialBottom.y - moveAmountBottom,
             duration: 1.55,
-            scale: 2,
             ease: "power3.inOut",
         }, 0);
 
-        // Phase 2: move to final positions and scale
+        // Phase 2: restore original size and move further
         tl.to(dotTop, {
-            y: initialTop.y - moveAmountTop +50,
-           
+            y: initialTop.y + moveAmountTop + 16,
+            scale: growSize,
             duration: 1,
             ease: "power3.inOut",
         }, ">");
 
         tl.to(dotBottom, {
-            y: initialBottom.y + moveAmountBottom - 50,
-            
+            y: initialBottom.y - moveAmountBottom - 16,
             duration: 1,
             ease: "power3.inOut",
         }, "<");
@@ -59,32 +62,30 @@ export const initializeScrollIndicator = () => {
     const activateScrollUp = () => {
         const tl = gsap.timeline();
 
-        // Phase 1: move to intermediate offset again
+        // Phase 1: top dot grows, bottom dot shrinks and both move
         tl.to(dotTop, {
             y: initialTop.y + moveAmountTop,
+            scale: shrinkSize, // Grow to 2x size
             duration: 1,
-            scale: 2,
             ease: "power3.inOut",
         }, 0);
 
         tl.to(dotBottom, {
             y: initialBottom.y - moveAmountBottom,
             duration: 1,
-            scale: 0.5,
             ease: "power3.inOut",
         }, 0);
 
-        // Phase 2: return to initial positions
+        // Phase 2: return to original position and size
         tl.to(dotTop, {
             ...initialTop,
-           
+            scale: growSize, // Return to original size (100%)
             duration: 1.55,
             ease: "power3.inOut",
         }, ">");
 
         tl.to(dotBottom, {
             ...initialBottom,
-          
             duration: 1.55,
             ease: "power3.inOut",
         }, "<");
@@ -96,12 +97,10 @@ export const initializeScrollIndicator = () => {
 
     const lockScroll = () => {
         document.body.style.overflow = 'hidden';
-        console.log("Scroll locked");
     };
 
     const unlockScroll = () => {
         document.body.style.overflow = '';
-        console.log("Scroll unlocked");
     };
 
     const handleScroll = (event) => {
@@ -110,7 +109,6 @@ export const initializeScrollIndicator = () => {
         const isScrollingDown = currentScrollY > lastScrollY || deltaY > 0;
 
         if (isAnimating) {
-            console.log("Animation in progress, scroll ignored");
             event.preventDefault();
             return;
         }
@@ -119,10 +117,8 @@ export const initializeScrollIndicator = () => {
         lockScroll();
 
         if (isScrollingDown) {
-            console.log("Triggering DOWN animation");
             activateScrollDown();
         } else {
-            console.log("Triggering UP animation");
             activateScrollUp();
         }
 
@@ -137,9 +133,7 @@ export const initializeScrollIndicator = () => {
 
     document.addEventListener("wheel", handleScroll, { passive: false });
     document.addEventListener("touchstart", handleScroll, { passive: false });
-    console.log("ScrollController initialized");
 
     dotTop.classList.add("active");
     dotBottom.classList.remove("active");
-    console.log("Scroll indicator initial state set: top active");
 };

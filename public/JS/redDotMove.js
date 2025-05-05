@@ -1,15 +1,47 @@
 // ========== CONSTANTS ==========
 // These never change. They're parameters for how the dot behaves.
-const jitterDistance = 60;      // When dot gets this close to cursor, start jittering
+const jitterDistance = 30;      // When dot gets this close to cursor, start jittering
 const jitterIntensity = 3.5;    // How intense the jitter effect is
 const baseSpeed = 0.0004;       // Base movement speed of the red dot (screen-size normalized)
+const snapThreshold = 40;       // Distance at which red dot snaps to red ring
 
 // ========== VARIABLES ==========
 // These change over time as the dot moves around
 let redDot;                     // The actual red dot element from the DOM
+let redRing, info1;             // Elements for snapping and revealing info
 let currentX, currentY;         // Current position of the red dot
 let targetX, targetY;           // Target position (follows the mouse)
 let lastTimestamp = null;       // Timestamp of the previous animation frame
+let hasSnapped = false;         // Whether the dot is currently snapped to the ring
+
+// ========== INITIALIZATION ==========
+// Called once after the animation finishes to start everything
+export function initializeRedDot() {
+    if (sessionStorage.getItem('animationComplete') === 'true') {
+        console.log("Red dot initialized immediately after animation completion.");
+    } else {
+        console.log("Animation is not complete yet. Red dot will initialize after animation.");
+    }
+
+    redDot = document.querySelector(".red-dot");
+    redRing = document.getElementById("red-ring");
+    info1 = document.querySelector(".info1");
+
+    if (!redDot || !redRing || !info1) {
+        console.error("Missing essential elements for red dot behavior.");
+        return;
+    }
+
+    const redDotRect = redDot.getBoundingClientRect();
+    currentX = redDotRect.left;
+    currentY = redDotRect.top;
+
+    targetX = currentX;
+    targetY = currentY;
+
+    requestAnimationFrame(updateRedDotPosition);
+    trackMouse();
+}
 
 // ========== EVENT LISTENER ==========
 // Watches the mouse and updates the targetX / targetY values
@@ -19,6 +51,39 @@ export function trackMouse() {
         targetY = e.pageY;
     });
 }
+
+// ========== SNAP CHECK FUNCTION ==========
+// Determines if the red dot should snap to the red ring
+function checkSnapToRing() {
+    if (!redRing || !info1) return;
+
+    const ringRect = redRing.getBoundingClientRect();
+    const ringX = ringRect.left + ringRect.width / 2 + window.scrollX;
+    const ringY = ringRect.top + ringRect.height / 2 + window.scrollY;
+
+    const dx = ringX - currentX;
+    const dy = ringY - currentY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < snapThreshold && !hasSnapped) {
+        hasSnapped = true;
+
+        // Snap to center of red ring
+        currentX = ringX;
+        currentY = ringY;
+        redDot.style.left = `${currentX}px`;
+        redDot.style.top = `${currentY}px`;
+
+        // Reveal .info1
+        info1.classList.add("visible");
+    }
+
+    if (distance > snapThreshold + 80 && hasSnapped) {
+        hasSnapped = false;
+        info1.classList.remove("visible");
+    }
+}
+
 
 // ========== CORE LOOP ==========
 // Called every frame to update the red dot’s position
@@ -37,7 +102,7 @@ export function updateRedDotPosition(timestamp) {
     const distance = Math.sqrt(dx * dx + dy * dy);
 
     // Easing factor: increase speed when far, slow down when near
-    const easingFactor = Math.min(distance * 0.01, 1); // Between 0–1
+    const easingFactor = Math.min(distance * 0.01, 2); // Between 0–2
 
     // Scaled speed based on screen width and frame delta
     const speed = baseSpeed * window.innerWidth * easingFactor;
@@ -60,38 +125,10 @@ export function updateRedDotPosition(timestamp) {
     redDot.style.left = `${currentX}px`;
     redDot.style.top = `${currentY}px`;
 
+    checkSnapToRing(); 
+
     // Loop again next frame
     requestAnimationFrame(updateRedDotPosition);
 }
 
-// ========== INITIALIZATION ==========
-// Called once after the animation finishes to start everything
-export function initializeRedDot() {
-    // Log to console depending on session state
-    if (sessionStorage.getItem('animationComplete') === 'true') {
-        console.log("Red dot initialized immediately after animation completion.");
-    } else {
-        console.log("Animation is not complete yet. Red dot will initialize after animation.");
-    }
 
-    // Grab red dot from the DOM
-    redDot = document.querySelector(".red-dot");
-
-    if (!redDot) {
-        console.error("Red dot element not found!");
-        return;
-    }
-
-    // Get initial position of red dot on screen
-    const redDotRect = redDot.getBoundingClientRect();
-    currentX = redDotRect.left;
-    currentY = redDotRect.top;
-
-    // Prevent jump by starting target where the dot is
-    targetX = currentX;
-    targetY = currentY;
-
-    // Start movement loop + mouse tracking
-    requestAnimationFrame(updateRedDotPosition);
-    trackMouse();
-}

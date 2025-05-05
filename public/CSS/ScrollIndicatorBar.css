@@ -8,16 +8,14 @@
     z-index: 1000;
 }
 
-.dot {
+#dotTop, #dotBottom {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     background-color: black;
     transition: width 0.3s ease, height 0.3s ease;
+    transform-origin: center;
 }
 
-.dot.active {
-    width: 20px;
-    height: 20px;
-}
+
 
