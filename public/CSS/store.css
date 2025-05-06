@@ -18,7 +18,7 @@
 
 /* Apply different sizes for each quadrant */
 .collection1 {
-  position: fixed;
+  position: relative;
   height: 870px; /* Custom height for the first quadrant */
   width: 1200px;
   background-color: rgb(48, 48, 48);

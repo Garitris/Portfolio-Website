@@ -1,41 +1,34 @@
 // ========== CONSTANTS ==========
-// These never change. They're parameters for how the dot behaves.
-const jitterDistance = 30;      // When dot gets this close to cursor, start jittering
-const jitterIntensity = 3.5;    // How intense the jitter effect is
-const baseSpeed = 0.0004;       // Base movement speed of the red dot (screen-size normalized)
-const snapThreshold = 40;       // Distance at which red dot snaps to red ring
+const jitterDistance = 30;       // Jitter triggers when within this range to cursor
+const jitterIntensity = 3.5;     // Intensity of jitter
+const baseSpeed = 0.0004;        // Base movement speed of the red dot (screen-size normalized)
+const snapThreshold = 40;        // Distance at which the dot snaps to the red ring
+const ringAttractionSpeed = 6;   // Speed at which the red dot moves towards the red ring (constant speed)
 
 // ========== VARIABLES ==========
-// These change over time as the dot moves around
-let redDot;                     // The actual red dot element from the DOM
-let redRing, info1;             // Elements for snapping and revealing info
-let currentX, currentY;         // Current position of the red dot
-let targetX, targetY;           // Target position (follows the mouse)
-let lastTimestamp = null;       // Timestamp of the previous animation frame
-let hasSnapped = false;         // Whether the dot is currently snapped to the ring
+let redDot, redRing, info1;           // Red dot, red ring, and info1 elements
+let currentX, currentY;               // Current position of the red dot
+let targetX, targetY;                 // Target position (follows mouse)
+let lastTimestamp = null;            // Last timestamp for animation
+let hasSnapped = false;              // Whether the dot has snapped to the ring
+let unsnapTimer = null; // Optional timeout unsnap
+let isBeingPulledToRing = false;     // Flag for persistent ring pull behavior
+let cursorFollow = true;             // Flag controlling cursor-following behavior
 
 // ========== INITIALIZATION ==========
-// Called once after the animation finishes to start everything
 export function initializeRedDot() {
-    if (sessionStorage.getItem('animationComplete') === 'true') {
-        console.log("Red dot initialized immediately after animation completion.");
-    } else {
-        console.log("Animation is not complete yet. Red dot will initialize after animation.");
-    }
-
     redDot = document.querySelector(".red-dot");
     redRing = document.getElementById("red-ring");
     info1 = document.querySelector(".info1");
 
-    if (!redDot || !redRing || !info1) {
-        console.error("Missing essential elements for red dot behavior.");
+    if (!redDot) {
+        console.error("Red dot element missing.");
         return;
     }
 
     const redDotRect = redDot.getBoundingClientRect();
     currentX = redDotRect.left;
     currentY = redDotRect.top;
-
     targetX = currentX;
     targetY = currentY;
 
@@ -43,19 +36,42 @@ export function initializeRedDot() {
     trackMouse();
 }
 
-// ========== EVENT LISTENER ==========
-// Watches the mouse and updates the targetX / targetY values
+// ========== MOUSE TRACKING ==========
 export function trackMouse() {
     document.addEventListener("mousemove", (e) => {
-        targetX = e.pageX;
-        targetY = e.pageY;
+        if (cursorFollow && !hasSnapped && !isBeingPulledToRing) {
+            targetX = e.pageX;
+            targetY = e.pageY;
+
+            if (redRing && checkCursorOnRing(e.pageX, e.pageY)) {
+                isBeingPulledToRing = true;
+                cursorFollow = false;
+            }
+        }
     });
 }
 
-// ========== SNAP CHECK FUNCTION ==========
-// Determines if the red dot should snap to the red ring
+// ========== HELPER: IS CURSOR ON RING ==========
+function checkCursorOnRing(cursorX, cursorY) {
+    if (!redRing) return false;
+
+    const ringRect = redRing.getBoundingClientRect();
+    const ringLeft = ringRect.left + window.scrollX;
+    const ringRight = ringRect.right + window.scrollX;
+    const ringTop = ringRect.top + window.scrollY;
+    const ringBottom = ringRect.bottom + window.scrollY;
+
+    return (
+        cursorX >= ringLeft &&
+        cursorX <= ringRight &&
+        cursorY >= ringTop &&
+        cursorY <= ringBottom
+    );
+}
+
+// ========== HELPER: SNAP TO RING ==========
 function checkSnapToRing() {
-    if (!redRing || !info1) return;
+    if (!redRing || isBeingPulledToRing) return;
 
     const ringRect = redRing.getBoundingClientRect();
     const ringX = ringRect.left + ringRect.width / 2 + window.scrollX;
@@ -67,68 +83,102 @@ function checkSnapToRing() {
 
     if (distance < snapThreshold && !hasSnapped) {
         hasSnapped = true;
-
-        // Snap to center of red ring
         currentX = ringX;
         currentY = ringY;
         redDot.style.left = `${currentX}px`;
         redDot.style.top = `${currentY}px`;
-
-        // Reveal .info1
-        info1.classList.add("visible");
+        if (info1) info1.classList.add("visible");
     }
 
     if (distance > snapThreshold + 80 && hasSnapped) {
         hasSnapped = false;
-        info1.classList.remove("visible");
+        if (info1) info1.classList.remove("visible");
     }
 }
 
+// ========== ANIMATION LOOP ==========
+function updateRedDotPosition(timestamp) {
+    if (!redDot) return;
 
-// ========== CORE LOOP ==========
-// Called every frame to update the red dot’s position
-export function updateRedDotPosition(timestamp) {
-    if (!redDot) return; // Safety check
-
-    // Time delta in seconds between frames
     if (lastTimestamp === null) lastTimestamp = timestamp;
     const deltaTime = (timestamp - lastTimestamp) / 1000;
     lastTimestamp = timestamp;
 
-    const dx = targetX - currentX;
-    const dy = targetY - currentY;
+    if (isBeingPulledToRing) {
+        const ringRect = redRing.getBoundingClientRect();
+        const ringX = ringRect.left + ringRect.width / 2 + window.scrollX;
+        const ringY = ringRect.top + ringRect.height / 2 + window.scrollY;
 
-    // Calculate distance to target (Pythagorean theorem)
-    const distance = Math.sqrt(dx * dx + dy * dy);
+        const pullDx = ringX - currentX;
+        const pullDy = ringY - currentY;
+        const pullDistance = Math.sqrt(pullDx * pullDx + pullDy * pullDy);
 
-    // Easing factor: increase speed when far, slow down when near
-    const easingFactor = Math.min(distance * 0.01, 2); // Between 0–2
+        const pullSpeed = ringAttractionSpeed;
 
-    // Scaled speed based on screen width and frame delta
-    const speed = baseSpeed * window.innerWidth * easingFactor;
+        currentX += pullDx * pullSpeed * deltaTime;
+        currentY += pullDy * pullSpeed * deltaTime;
 
-    // Movement per frame
-    const stepX = dx * speed * deltaTime;
-    const stepY = dy * speed * deltaTime;
+        if (pullDistance < 2) {
+            currentX = ringX;
+            currentY = ringY;
+            isBeingPulledToRing = false;
+            hasSnapped = true;
 
-    // If dot is close to the target, apply jitter for dynamic effect
-    if (distance < jitterDistance) {
-        currentX += stepX + (Math.random() - 0.5) * jitterIntensity;
-        currentY += stepY + (Math.random() - 0.5) * jitterIntensity;
+            redDot.style.left = `${currentX}px`;
+            redDot.style.top = `${currentY}px`;
+
+            if (info1) info1.classList.add("visible");
+
+            clearTimeout(unsnapTimer);
+            unsnapTimer = setTimeout(() => {
+                hasSnapped = false;
+                cursorFollow = true;
+                if (info1) info1.classList.remove("visible");
+            }, 1500);
+
+            requestAnimationFrame(updateRedDotPosition);
+            return;
+        }
+
+    } else if (!hasSnapped) {
+        const dx = targetX - currentX;
+        const dy = targetY - currentY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        const easingFactor = Math.min(distance * 0.1, 2);
+        const speed = baseSpeed * window.innerWidth * easingFactor;
+
+        const stepX = dx * speed * deltaTime;
+        const stepY = dy * speed * deltaTime;
+
+        if (distance < jitterDistance && !isBeingPulledToRing) {
+            currentX += stepX + (Math.random() - 0.5) * jitterIntensity;
+            currentY += stepY + (Math.random() - 0.5) * jitterIntensity;
+        } else {
+            currentX += stepX;
+            currentY += stepY;
+        }
+
     } else {
-        // Otherwise, move normally toward the target
-        currentX += stepX;
-        currentY += stepY;
+        // If snapped, hold the dot perfectly centered on the ring
+        const ringRect = redRing.getBoundingClientRect();
+        const ringX = ringRect.left + ringRect.width / 2 + window.scrollX;
+        const ringY = ringRect.top + ringRect.height / 2 + window.scrollY;
+        currentX = ringX;
+        currentY = ringY;
+
+        // Also check if cursor left the ring zone (for unsnapping)
+        const cursorDist = Math.hypot(targetX - ringX, targetY - ringY);
+        if (cursorDist > snapThreshold + 80) {
+            hasSnapped = false;
+            cursorFollow = true;
+            if (info1) info1.classList.remove("visible");
+            clearTimeout(unsnapTimer);
+        }
     }
 
-    // Apply updated position to the red dot
     redDot.style.left = `${currentX}px`;
     redDot.style.top = `${currentY}px`;
 
-    checkSnapToRing(); 
-
-    // Loop again next frame
     requestAnimationFrame(updateRedDotPosition);
 }
-
-
