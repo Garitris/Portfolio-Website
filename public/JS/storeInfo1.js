@@ -11,5 +11,6 @@ export const handleStoreInfo1Anim = () => {
     secondDuration: 1,
     scrollMarkerId: "moveLeft2", // Different ID for debugging markers
     ease: "power3.inOut", 
+    startInvisible: true,
   });
 };

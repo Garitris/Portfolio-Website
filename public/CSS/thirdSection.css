@@ -3,20 +3,19 @@
     position: relative;
     width: 100vw;
     min-height: 100vh; /* Make sure it can grow */
-    background-color: #121212; /* Dark background to match your theme */
+    background-color: #c92a2a; /* Dark background to match your theme */
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
 }
 
-.third_section_content {
-    background-image: url(../imgs/VANTA_Landing_Page_design01.png);
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100vw;  /* full window width */
-    height: 100vh; /* full window height */
-    margin-top: 50px;
+#Collection_1_Footage_01 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 130%;
+    height: 100%;
+    object-fit: cover;
 }
 

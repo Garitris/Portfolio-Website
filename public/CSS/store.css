@@ -21,8 +21,27 @@
   position: relative;
   height: 870px; /* Custom height for the first quadrant */
   width: 1200px;
-  background-color: rgb(48, 48, 48);
   will-change: transform; /* “Hey, I’m going to change the transform property on this element soon — so get ready.” */
+}
+
+.collection1 img {
+  width: 29%;
+  height: auto;
+}
+
+.collection2 img {
+  width: 29%;
+  height: auto;
+}
+
+.collection3 img {
+  width: 29%;
+  height: auto;
+}
+
+.collection4 img {
+  width: 29%;
+  height: auto;
 }
 
 .collection2 {
