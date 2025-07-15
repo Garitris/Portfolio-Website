@@ -1,25 +1,27 @@
-// promotional.js
+// promotionalBar.js
 
-// Export function to handle promotional bar animation
 export const promotionalBarAnim = () => {
     const section = document.querySelector('#promotionalBar');
-
-    // Ensure the section exists
     if (!section) return;
-
-    // Use the scrollable container (body)
-    const store = document.body;
 
     // Set initial position
     section.style.top = '0px';
 
-    // Add scroll listener on the same container used by navbar
-    store.addEventListener('scroll', () => {
-        const scrollPosition = store.scrollTop;
+    const updatePosition = () => {
+        const scrollY = window.scrollY;
 
-        // Move the promo bar upwards slightly as you scroll
-        const topOffset = Math.max(-scrollPosition / 1, -100);
+        // If near the top (within 1px), snap to exactly 0
+        if (scrollY < 1) {
+            section.style.top = '0px';
+            return;
+        }
 
-        section.style.top = `${topOffset}px`;
+        // Otherwise move it upward, capping at -100px
+        const offset = Math.max(-scrollY, -100);
+        section.style.top = `${offset}px`;
+    };
+
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(updatePosition);
     });
 };

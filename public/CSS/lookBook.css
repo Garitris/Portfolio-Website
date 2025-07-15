@@ -1,33 +1,131 @@
+/* Smooth scroll setup */
+html, body {
+    height: 100%;
+    overflow-y: scroll; /* enable native vertical scrolling */
+    margin: 0;
+    padding: 0;
+
+    /* Hide scrollbar visually */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+
+#scroll-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    will-change: transform;
+}
+
 #logo_intro_animation {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: black; /* or any background you like */
+    background: linear-gradient(rgb(26, 26, 26), white);
+}
+
+body.loading {
+    overflow: hidden; /* keep scroll disabled only during loading */
+    pointer-events: none;
+}
+
+body.loaded {
+    overflow-y: scroll; /* enable scroll after loading */
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
 }
 
 #logo {
-    width: 300px;
-    height: auto;
-    opacity: 0;
-    transition: opacity 2s ease, transform 0.5s ease;
-    animation: fadeIn 2s forwards;
     position: fixed;
-    top: 50%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    width: clamp(120px, 50vw, 600px);
+    height: auto;
     z-index: 1000;
+
+    /* Translate exactly -50% of its size to center */
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    will-change: transform;
+
+    pointer-events: none;
+
+    opacity: 0;
+    animation: logoEnter 1.2s ease-out 0.9s forwards;
 }
 
-@keyframes fadeIn {
-    to {
+@keyframes logoEnter {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -65%);
+    }
+    100% {
         opacity: 1;
+        transform: translate(-50%, -50%);
     }
 }
 
-#logo.shrink {
-    width: 120px;
-    transform: translate(20px, 20px); /* move to corner (you can adjust) */
-    top: 20px;
-    left: 20px;
-}
+#lookBook {
+    background: white;
+    padding: 60px 5%;
+  }
+  
+  .photo-gallery {
+    position: relative;
+    width: 100%;
+    height: 6000px; /* adjust this to fit all images vertically */
+  }
+  
+  /* Base styles for images */
+  .photo-gallery .photo {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(60px);
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 2s ease, transform 2s ease;
+    will-change: transform, opacity;
+  }
+
+  .photo-gallery .photo.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Individual image positioning */
+  .look1 {
+    top: 40%;    /* distance from top of container */
+    left: 40%;     /* distance from left edge */
+    width: 60%;
+    height: auto;  /* auto maintain aspect ratio */
+  }
+  
+  .look2 {
+    top: 80%;
+    left: 20%;
+    width: 60%;
+    height: auto;  /* auto maintain aspect ratio */
+  }
+  
+  .look3 {
+    top: 10%;
+    left: 40%;
+    width: 60%;
+    height: auto;  /* auto maintain aspect ratio */
+  }
+  
+  .look4 {
+    top: 30%;
+    left: 1%;
+    width: 400px;
+    height: auto;  /* auto maintain aspect ratio */
+  }
+  

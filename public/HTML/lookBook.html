@@ -6,38 +6,42 @@
     <title>GariPrtWbsite</title>
     <link rel="stylesheet" href="../CSS/main.css">
 </head>
-<body>    
+<body>
+    <!-- Black screen transition -->
     <div id="blackScreen"></div>
 
-    <!-- Red dot GIF (following the cursor) -->
+    <!-- Red dot (cursor follower) -->
     <img class="red-dot" src="../imgs/Red_Dot_01.gif" alt="Red Dot" />
 
-    <header id="top_nav_bar">
-        <nav>
-            <div class="button-list">
-                <a href="lookBook.html"><button class="btn">LookBook</button></a>
-                <a href="store.html"><button class="btn">Store</button></a>
-                <a href="aboutMe.html"><button class="btn">About me</button></a>
-                <button class="btn">BTS</button>
+    <!-- Smooth scroll wrapper begins -->
+    <div id="scroll-container">
+        <header id="top_nav_bar">
+            <nav>
+                <div class="button-list">
+                    <a href="lookBook.html"><button class="btn">LookBook</button></a>
+                    <a href="store.html"><button class="btn">Store</button></a>
+                    <a href="aboutMe.html"><button class="btn">About me</button></a>
+                    <button class="btn">BTS</button>
+                </div>
+            </nav>
+        </header>
+
+        <section id="logo_intro_animation">
+            <img id="logo" src="../imgs/VANTA_Logo_White.png" alt="Logo">
+        </section>
+
+        <section id="lookBook">
+            <div class="photo-gallery">
+              <img src="../imgs/Collection1/Look_shots/01_Edited.png" alt="Look 1" class="photo look1" />
+              <img src="../imgs/Collection1/Look_shots/02_Edited.png" alt="Look 2" class="photo look2" />
+              <img src="../imgs/Collection1/Look_shots/03_Edited.png" alt="Look 3" class="photo look3" />
+              <img src="../imgs/Collection1/Look_shots/04_Edited.png" alt="Look 4" class="photo look4" />
             </div>
-        </nav>
-    </header>
+          </section>
+          
+    </div>
+    <!-- Smooth scroll wrapper ends -->
 
-    <section id="logo_intro_animation">
-        <img id="logo" src="../imgs/VANTA_Logo_White.png" alt="Logo">
-    </section>
-
-    <section id="lookBook" style="background: #464646; padding: 20px;">
-        <div class="collection1" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
-          <img src="../imgs/Collection1/Look_shots/01_Edited.png" alt="Look 1" style="width: 80%; height: auto;">
-          <img src="../imgs/Collection1/Look_shots/02_Edited.png" alt="Look 2" style="width: 80%; height: auto;">
-          <img src="../imgs/Collection1/Look_shots/03_Edited.png" alt="Look 3" style="width: 80%; height: auto;">
-          <img src="../imgs/Collection1/Look_shots/04_Edited.png" alt="Look 4" style="width: 80%; height: auto;">
-        </div>
-      </section>
-      
-
-      <script type="module" src="../JS/lookBook.js"></script>
-
+    <script type="module" src="../JS/lookBook.js"></script>
 </body>
 </html>
