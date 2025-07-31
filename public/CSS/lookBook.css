@@ -138,3 +138,21 @@ body.loaded {
     height: auto;  /* auto maintain aspect ratio */
   }
   
+/* SVG path styling */
+.scroll-path {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6000px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scroll-path path {
+  stroke: black;
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 1; /* Will be updated in JS */
+  stroke-dashoffset: 1;
+}

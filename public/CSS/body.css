@@ -15,6 +15,7 @@ html, body {
     overflow-y: scroll;           /* Ensures scroll works even if content fits */
 }
 
+
 body::-webkit-scrollbar,
 html::-webkit-scrollbar {
   display: none;                /* Chrome, Safari, Opera */

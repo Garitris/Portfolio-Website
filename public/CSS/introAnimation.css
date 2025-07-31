@@ -4,21 +4,24 @@
 
 /* The section that holds the video */
 #intro_animation {
-    position: relative;
+    position: fixed;         /* overlay top of page */
+    top: 0;
+    left: 0;
     width: 100vw;
-
-    /* Forces full height even if parent containers collapse */
     height: 100vh;
-    min-height: 100vh;
-
+    z-index: 9999;
     overflow: hidden;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
 }
 
-/* Prevent scrolling */
-body.no-scroll {
-    overflow: hidden;
-}
+/* Fade out the whole section */
+#intro_animation.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
 
 /* The video container */
 #video_container {
@@ -42,4 +45,9 @@ body.no-scroll {
 /* Hide the entire section when marked as hidden */
 #blackhole_section.hidden {
     display: none;
+}
+
+/* Prevent scrolling */
+body.no-scroll {
+    overflow: hidden;
 }

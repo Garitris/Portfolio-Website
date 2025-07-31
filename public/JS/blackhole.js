@@ -42,14 +42,29 @@ function preventDefaultForScrollKeys(e) {
 // ========== ANIMATION END HANDLER ==========
 // What happens after video animation ends
 function handleAnimationEnd() {
-    videoElement.style.opacity = 0;                       // Hide video
-    introSection.classList.add("visible");                // Reveal intro visuals
-    enableScroll();                                       // Restore scroll
-    sessionStorage.setItem("animationComplete", "true");  // Mark as viewed
+    // Add fade-out class to intro section
+    introSection.classList.add("fade-out");
 
-    console.log("Triggering red dot reveal after animation ends...");
-    revealRedDot();                                       // Trigger red dot (with delay)
+    // Wait for transition to finish (1s) then remove it
+    setTimeout(() => {
+        introSection.remove();
+        enableScroll();
+
+        // Scroll to top of brand identity
+        const brandSection = document.getElementById("brand_identity");
+        if (brandSection) {
+            brandSection.scrollIntoView({ behavior: "auto" });
+        }
+
+        // Mark intro as played
+        sessionStorage.setItem("animationComplete", "true");
+
+        // Trigger red dot reveal (with animation)
+        revealRedDot();
+    }, 1000); // match transition time
 }
+
+
 
 // ========== MAIN SETUP FUNCTION ==========
 // Handles whether to skip or play animation based on session
@@ -57,17 +72,23 @@ function setupBlackholeAnimation() {
     const alreadyPlayed = sessionStorage.getItem("animationComplete") === "true";
 
     if (alreadyPlayed) {
-        // Skip animation for returning user
-        videoElement.style.opacity = 0;
-        introSection.classList.add("visible");
+        // Immediately remove the intro section if animation already played
+        if (introSection) {
+            introSection.remove();
+        }
+
+        // Enable scroll immediately
         enableScroll();
-        revealRedDot(true); // ⬅️ Skip delay
+
+        // Reveal red dot instantly, skipping delay
+        revealRedDot(true);
     } else {
-        // First-time viewer: play animation
+        // First-time viewer: play animation and disable scroll
         disableScroll();
         videoElement.addEventListener("ended", handleAnimationEnd);
     }
 }
+
 
 // ========== AUTO-INVOKE ON LOAD ==========
 setupBlackholeAnimation();

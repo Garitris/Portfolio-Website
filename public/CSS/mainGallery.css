@@ -15,7 +15,6 @@
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
-    outline: 1px solid rgb(248, 50, 1);
     z-index: 1000;
 }
 
@@ -42,32 +41,57 @@
 
 /* Individual gallery item (images) */
 .gallery-item {
+    filter: brightness(1.2);
     width: 100vw;
     height: 100vh;
-    object-fit: cover;
+    scale: 90%;
+    object-fit: contain;
     flex-shrink: 0; /* Prevents squishing in flex container */
+    
+       /* Fade edges using mask */
+mask-image: linear-gradient(to right, 
+    rgba(0, 0, 0, 0) 0%,       /* Fully transparent at the far left */
+    rgba(0, 0, 0, 1) 10%,      /* Fully visible after 10% */
+    rgba(0, 0, 0, 1) 90%,      /* Still visible until 90% */
+    rgba(0, 0, 0, 0) 100%      /* Fully transparent at far right */
+);
+-webkit-mask-image: linear-gradient(to right, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(0, 0, 0, 1) 10%, 
+    rgba(0, 0, 0, 1) 90%, 
+    rgba(0, 0, 0, 0) 100%
+  
+);
 }
 
 /* Arrow buttons */
 .gallery-btn {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scaleY(6) scale(1); /* initial: stretched + normal scale */
     background: transparent;
-    color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0); /* faded red */
     border: none;
     padding: 10px 100px;
-    font-size: 24px;
-    cursor: pointer;
+    font-size: 90px;
     z-index: 10;
+    opacity: 0.4; /* start transparent */
+    cursor: pointer;
+    transition: 
+        transform 0.3s ease,
+        color 0.3s ease,
+        opacity 0.3s ease;
 }
+
+.gallery-btn:hover {
+    transform: translateY(-50%) scaleY(6) scale(1.15); /* grows slightly while staying stretched */
+    color: rgba(255, 0, 0, 1); /* full red */
+    opacity: 1;
+}
+
 
 .left-btn { left: 10px; }
 .right-btn { right: 10px; }
-
-.gallery-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
 
 /* Typing Text */
 .typing-container {
@@ -117,3 +141,4 @@
 @keyframes blink {
     50% { opacity: 0; }
 }
+
