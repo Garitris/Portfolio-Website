@@ -1,0 +1,50 @@
+.product-page {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap; /* stacks on small screens */
+}
+
+.product-images {
+  flex: 1;
+  min-width: 300px;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.thumbnail-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.thumbnail-row img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumbnail-row img:hover {
+  border-color: red;
+}
+
+.product-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.flavour-text {
+  font-style: italic;
+  color: #999;
+}
+
+.sizing ul {
+  list-style: none;
+  padding: 0;
+}
