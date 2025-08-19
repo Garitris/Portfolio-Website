@@ -5,6 +5,7 @@ import { revealRedDot } from "./redDotReveal.js";         // Red dot reveal logi
 import { handleNavbarScroll, handleNavbarHover } from "./navBar.js"; // Navbar behaviors
 import { promotionalBarAnim } from "./promotionalBar.js";  // Promo bar animation
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
+import { thumbnailImages } from "./thumbnailImages.js";
 
 
 // ========== INITIALIZATION ==========
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             handleNavbarScroll();
             handleNavbarHover();
             promotionalBarAnim();
+            thumbnailImages();
         })
         .catch((error) => {
             console.error("Error during initialization:", error);

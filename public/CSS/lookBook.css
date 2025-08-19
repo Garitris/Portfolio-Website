@@ -2,11 +2,10 @@
 .lookbook-page,
 .lookbook-page html,
 .lookbook-page body {
-    height: 100%;
-    overflow-y: scroll;
     margin: 0;
     padding: 0;
-
+    height: auto;          /* allow body to expand naturally */
+    overflow-y: auto;      /* natural browser scrolling */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
 }
@@ -18,10 +17,9 @@
     background: transparent;
 }
 
+/* Container no longer fixed */
 #scroll-container {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative; /* changed from fixed */
     width: 100%;
     will-change: transform;
 }
@@ -40,7 +38,7 @@ body.loading {
 }
 
 body.loaded {
-    overflow-y: scroll; /* enable scroll after loading */
+    overflow-y: auto; /* enable scroll after loading */
     pointer-events: auto;
     transition: opacity 0.3s ease;
 }
@@ -53,7 +51,6 @@ body.loaded {
     height: auto;
     z-index: 1000;
 
-    /* Translate exactly -50% of its size to center */
     transform: translate(-50%, -50%);
     transform-origin: center;
     will-change: transform;
@@ -78,16 +75,16 @@ body.loaded {
 #lookBook {
     background: white;
     padding: 60px 5%;
-  }
-  
-  .photo-gallery {
+}
+
+.photo-gallery {
     position: relative;
     width: 100%;
-    height: 8500px; /* adjust this to fit all images vertically */
-  }
-  
-  /* Base styles for images */
-  .photo-gallery .photo {
+    height: 8500px; /* keeps enough vertical space for scrolling */
+}
+
+/* Base styles for images */
+.photo-gallery .photo {
     position: absolute;
     opacity: 0;
     transform: translateY(60px);
@@ -95,64 +92,80 @@ body.loaded {
     cursor: pointer;
     transition: opacity 2s ease, transform 2s ease;
     will-change: transform, opacity;
-  }
+}
 
-  .photo-gallery .photo.visible {
+.photo-gallery .photo.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-  
-  /* Individual image positioning */
-  .look1 {
-    top: 40%;    /* distance from top of container */
-    left: 40%;     /* distance from left edge */
+}
+
+/* Individual image positioning */
+.look1 {
+    top: 40%;    
+    left: 40%;     
     width: 60%;
-    height: auto;  /* auto maintain aspect ratio */
-  }
-  
-  .look2 {
+    height: auto;
+}
+
+.look2 {
     top: 67%;
     left: 20%;
     width: 60%;
-    height: auto;  /* auto maintain aspect ratio */
-  }
-  
-  .look3 {
+    height: auto;
+}
+
+.look3 {
     top: 10%;
     left: 40%;
     width: 60%;
-    height: auto;  /* auto maintain aspect ratio */
-  }
+    height: auto;
+}
 
-  .look5 {
+.look5 {
     top: 25%;
     left: 1%;
     width: 600px;
-    height: auto;  /* auto maintain aspect ratio */
-  }
+    height: auto;
+}
 
-  .look6 {
+.look6 {
     top: 88%;
     left: 30%;
     width: 700px;
-    height: auto;  /* auto maintain aspect ratio */
-  }
-  
+    height: auto;
+}
+
 /* SVG path styling */
 .scroll-path {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 6000px;
-  width: 100%;
-  pointer-events: none;
-  z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 6000px;
+    width: 100%;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .scroll-path path {
-  stroke: black;
-  stroke-width: 2;
-  fill: none;
-  stroke-dasharray: 1; /* Will be updated in JS */
-  stroke-dashoffset: 1;
+    stroke: black;
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 1; /* Will be updated in JS */
+    stroke-dashoffset: 1;
+}
+
+.lookbook-page #blackScreen {
+    display: none !important;   /* hide overlay */
+}
+
+.lookbook-page .red-dot {
+    pointer-events: none !important;  /* make red dot not block scroll */
+}
+
+.lookbook-page body,
+.lookbook-page html,
+.lookbook-page #scroll-container {
+    height: auto !important;
+    overflow-y: auto !important;
+    display: block !important;
 }

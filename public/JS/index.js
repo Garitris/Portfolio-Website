@@ -12,6 +12,7 @@ import { handleNavbarScroll, handleNavbarHover } from "./navBar.js"; // Navbar b
 import { handleSectionTransition } from "./sectionTransition.js"; // Section transition
 import { promotionalBarAnim } from "./promotionalBar.js";  // Promo bar animation
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
+import { setupSmoothScrollInertia } from './smoothScroll.js';
 
 
 // ========== INITIALIZATION ==========
@@ -32,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             handleNavbarHover();
             handleSectionTransition();
             promotionalBarAnim();
+            setupSmoothScrollInertia();
         })
         .catch((error) => {
             console.error("Error during initialization:", error);

@@ -1,24 +1,44 @@
-.product-page {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  flex-wrap: wrap; /* stacks on small screens */
+/* Scoped to product item page only */
+body.item-page,
+body.item-page html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;             /* lock page to viewport */
+  background-color: rgb(14, 14, 14);
+  overflow: hidden;          /* disable overall page scrolling */
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/* Product container fills viewport */
+.product-page {
+  display: flex;
+  gap: 5rem;
+  padding: 5rem;
+  flex-wrap: wrap; 
+  height: 100%;              /* fill viewport */
+}
+
+/* Product images section */
 .product-images {
   flex: 1;
   min-width: 300px;
 }
 
 .main-image img {
+  padding: 3% 20% 1%;
   width: 100%;
   height: auto;
   object-fit: cover;
+  will-change: transform, opacity;
 }
 
 .thumbnail-row {
   display: flex;
   gap: 0.5rem;
+  padding: 0% 20% 0%;
   margin-top: 1rem;
 }
 
@@ -28,23 +48,119 @@
   object-fit: cover;
   cursor: pointer;
   border: 2px solid transparent;
+  will-change: transform, opacity, border-color;
 }
 
 .thumbnail-row img:hover {
   border-color: red;
 }
 
+/* Text section scrollable */
+.product-info-scroll {
+  flex: 1;
+  min-width: 300px;
+  max-height: 100%;         /* fills container height */
+  overflow-y: auto;         /* scroll only inside this */
+  position: relative;
+  padding-left: 12px; 
+}
+
+/* Scrollbar styling */
+.product-info-scroll::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0; 
+  width: 6px; 
+  height: 100%;
+  border-radius: 3px;
+}
+
+.product-info-scroll::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+.product-info-scroll::-webkit-scrollbar-thumb {
+  background-color: red;
+  border-radius: 3px;
+  border: 2px solid transparent; 
+}
+
+/* Firefox */
+.product-info-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: red transparent;
+}
+
+/* Inner text styling */
 .product-info {
   flex: 1;
   min-width: 300px;
+  color: #929292;
 }
 
 .flavour-text {
   font-style: italic;
-  color: #999;
+  color: #cecece;
 }
 
-.sizing ul {
-  list-style: none;
-  padding: 0;
+.technical-specs ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.technical-specs ul ul {
+  list-style-type: circle;
+  padding-left: 1.2rem;
+}
+
+.technical-specs li {
+  margin-bottom: 0.2rem;
+  color: #ffffff;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.sizing-specs {
+  font-size: 0.6rem;
+}
+
+.size-selector {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.size-selector label {
+  margin-right: 0.5rem;
+  font-weight: bold;
+  color: #cecece;
+}
+
+.size-selector select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #999;
+  background-color: #1a1a1a;
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-to-cart {
+  margin-top: 1rem;
+}
+
+.add-to-cart .btn {
+  padding: 0.8rem 1.5rem;
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart .btn:hover {
+  background-color: darkred;
 }
