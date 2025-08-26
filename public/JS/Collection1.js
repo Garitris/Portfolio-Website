@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showBlackScreenAndFade()
         .then(() => {
             // Start all other functions after the loading screen fades
-            
             revealRedDot();
             handleNavbarScroll();
             handleNavbarHover();

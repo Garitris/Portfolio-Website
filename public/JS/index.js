@@ -1,8 +1,4 @@
-// ========== IMPORTS ==========
-// External modules for handling animations and behaviors
-import { gsap } from "https://cdn.skypack.dev/gsap";
-// Make GSAP globally available
-window.gsap = gsap;
+// Import necessary modules and functions
 
 import { setupBlackholeAnimation } from "./blackhole.js"; // Blackhole intro animation
 import { revealRedDot } from "./redDotReveal.js";         // Red dot reveal logic
