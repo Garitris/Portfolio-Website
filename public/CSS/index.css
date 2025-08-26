@@ -2,6 +2,12 @@
 /* INTRO ANIMATION SECTION */
 /* ======================= */
 
+
+#homescreen {
+    min-height: 300vh;
+}
+
+
 /* The section that holds the video */
 #intro_animation {
     position: fixed;         /* overlay top of page */
@@ -10,7 +16,6 @@
     width: 100vw;
     height: 100vh;
     z-index: 9999;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,10 +52,7 @@
     display: none;
 }
 
-/* Prevent scrolling */
-body.no-scroll {
-    overflow: hidden;
-}
+
 
 /* Hide all sections initially that aren't required */
 .other-sections {
@@ -59,17 +61,18 @@ body.no-scroll {
 
 /* Main Gallery Section */
 #main_gallery {
-    position: absolute;
+    position: relative;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh; /* allow it to expand if content grows */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
     z-index: 1000;
+    background-color: #0c0c0c;
+    outline: 1px solid lime;
 }
 
 /* When the class 'visible' is added */
@@ -83,7 +86,7 @@ body.no-scroll {
 .gallery {
     position: relative;
     width: 100%; /* Adjust width as needed */
-    overflow: hidden;
+
 }
 
 /* Track that holds the gallery images */
@@ -198,7 +201,7 @@ mask-image: linear-gradient(to right,
 
 
 /* Fourth Section */
-#advertisement_content{
+#advertisement_content {
     position: relative;
     width: 100vw;
     height: 130vh; /* 200% the viewport height */
@@ -209,6 +212,7 @@ mask-image: linear-gradient(to right,
     color: rgb(255, 255, 255);
 }
 
+/* Brand Identity Section */
 #brand_identity {
     position: relative;
     width: 100vw;
@@ -221,6 +225,7 @@ mask-image: linear-gradient(to right,
     padding-top: 0;
 }
 
+/* Video setup */
 #Collection_1_Footage_01 {
     position: absolute;
     top: 0%;
@@ -230,9 +235,67 @@ mask-image: linear-gradient(to right,
     object-fit: cover;
 }
 
-.third_section_content {
+/* Overlay Text */
+.FALL25.COLLECTION {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
     text-align: center;
-    font-size: 1.5rem;
-    max-width: 80%; /* Keeps the text nicely contained. */
+    pointer-events: none; /* Allows clicks to pass through */
 }
 
+/* Responsive Text */
+@media (max-width: 768px) {
+    .FALL25.COLLECTION {
+        font-size: 2rem;
+    }
+}
+
+/* ============================= */
+/* LOOKBOOK SECTION + CAROUSEL   */
+/* ============================= */
+
+#lookbook_section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;   /* stack heading + carousel */
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #000000;
+  padding: 80px 20px;       /* spacing from top */
+}
+
+#lookbook_section h2 {
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.lookbookcarousel {
+  width: 90%;              /* responsive width */
+  max-width: 1200px;       /* optional max width */
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15); /* subtle shadow */
+}
+
+.carousel-images {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-images img {
+  width: 100%;
+  height: auto;            /* maintain aspect ratio */
+  flex-shrink: 0;
+  object-fit: contain;     /* scale image to fit inside container */
+  max-height: 100vh;        /* ensures it won’t exceed viewport height */
+}

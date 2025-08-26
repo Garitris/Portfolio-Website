@@ -6,7 +6,7 @@
     <title>GariPrtWbsite</title>
     <link rel="stylesheet" href="../CSS/main.css">
 </head>
-<body>    
+<body id="homescreen">    
     <div id="blackScreen"></div>
 
     <!-- Red dot GIF (following the cursor) -->
@@ -48,6 +48,9 @@
             <video id="Collection_1_Footage_01" autoplay muted playsinline loop preload="metadata">
                 <source src="../imgs/Collection_1_Footage_01.mp4" type="video/mp4">
             </video>
+            <div class="FALL25 COLLECTION">
+            <p>FALL '25 COLLECTION</p>
+            </div>
         </div>
     </section>
 
@@ -59,7 +62,7 @@
         <div class="gallery">
     <div class="gallery-track">
         <a href="collection1.html">
-            <img src="../imgs/Collection1/Look_shots/Hoodie_Gallery_Final.jpg" alt="Image 1" class="gallery-item">
+            <img src="../imgs/Collection1/Look_shots/Hoodie_Gallery_Final.png" alt="Image 1" class="gallery-item">
         </a>
 
         <a href="item-pant.html">
@@ -73,15 +76,25 @@
             </video>
         </a>
     </div>
-</div>
+    </div>
         <button class="gallery-btn right-btn">&gt;</button> <!-- Right Button -->
     </section>
 
-    <section id="advertisement_content">
-        <div class="third_section_content">
-            <p>WINTER 2025 COLLECTION</p>
-        </div>
-    </section>
+    <section id="lookbook_section">
+  <h2>LOOKBOOK</h2>
+  <div class="lookbookCarousel">
+    <div class="carousel-images">
+      <img src="../imgs/Collection1/Look_shots/01_Edited.png" alt="Look 1">
+      <img src="../imgs/Collection1/Look_shots/02_Edited.png" alt="Look 2">
+      <img src="../imgs/Collection1/Look_shots/03_Edited.png" alt="Look 3">
+      <img src="../imgs/Collection1/Look_shots/04_Edited.png" alt="Look 4">
+      <img src="../imgs/Collection1/Look_shots/05_Edited.png" alt="Look 5">
+      <img src="../imgs/Collection1/Look_shots/06_Edited.png" alt="Look 6">
+      <!-- Add more images as needed -->
+    </div>
+  </div>
+</section>
+
 
     <script type="module" src="../JS/index.js"></script>
 </body>

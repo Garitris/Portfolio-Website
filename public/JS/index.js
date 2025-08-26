@@ -1,4 +1,8 @@
-// Import necessary modules and functions
+// ========== IMPORTS ==========
+// External modules for handling animations and behaviors
+import { gsap } from "https://cdn.skypack.dev/gsap";
+// Make GSAP globally available
+window.gsap = gsap;
 
 import { setupBlackholeAnimation } from "./blackhole.js"; // Blackhole intro animation
 import { revealRedDot } from "./redDotReveal.js";         // Red dot reveal logic
@@ -8,7 +12,8 @@ import { handleNavbarScroll, handleNavbarHover } from "./navBar.js"; // Navbar b
 import { handleSectionTransition } from "./sectionTransition.js"; // Section transition
 import { promotionalBarAnim } from "./promotionalBar.js";  // Promo bar animation
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
-import { setupSmoothScrollInertia } from './smoothScroll.js';
+import { setupLookbookCarousel } from './lookbookCarousel.js'; // matches export
+
 
 
 // ========== INITIALIZATION ==========
@@ -29,7 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
             handleNavbarHover();
             handleSectionTransition();
             promotionalBarAnim();
-            setupSmoothScrollInertia();
+            setupLookbookCarousel(); // matches import/export
+
+              // ===== Debug scroll detection =====
+            window.addEventListener('scroll', () => {
+                console.log('Scroll detected! ScrollY:', window.scrollY);
+            });
+            
         })
         .catch((error) => {
             console.error("Error during initialization:", error);
