@@ -39,6 +39,11 @@ html, body {
   height: 100%;
   object-fit: cover; /* fills without distortion */
   display: block;    /* removes gaps under images */
+  transition: transform 0.5s ease; /* smooth zoom animation */
+}
+
+.grid-item:hover img {
+  transform: scale(1.1); /* zoom in 10% */
 }
 
 /* Keyframes for fade + slide down */
@@ -47,4 +52,29 @@ html, body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.grid-item.out-of-stock:hover img {
+  filter: blur(3px) brightness(0.7);
+}
+
+/* Overlay text (hidden by default) */
+.grid-item .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Hover: fade in text */
+.grid-item.out-of-stock:hover .overlay-text {
+  opacity: 1;
 }
