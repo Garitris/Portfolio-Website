@@ -13,6 +13,7 @@ import { handleSectionTransition } from "./sectionTransition.js"; // Section tra
 import { promotionalBarAnim } from "./promotionalBar.js";  // Promo bar animation
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
 import { setupLookbookCarousel } from './lookbookCarousel.js'; // matches export
+import { initLookbookCarousel } from './initLookbookCarousel.js';
 
 
 
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             handleSectionTransition();
             promotionalBarAnim();
             setupLookbookCarousel(); // matches import/export
+            initLookbookCarousel();
 
               // ===== Debug scroll detection =====
             window.addEventListener('scroll', () => {

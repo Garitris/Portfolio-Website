@@ -4,7 +4,7 @@
 
 
 #homescreen {
-    min-height: 300vh;
+    height: auto;
 }
 
 
@@ -71,7 +71,7 @@
     transform: translateY(50px);
     transition: opacity 1s ease, transform 1s ease;
     z-index: 1000;
-    background-color: #0c0c0c;
+    background-color: #000000;
     outline: 1px solid rgb(0, 0, 0);
 }
 
@@ -260,7 +260,7 @@ mask-image: linear-gradient(to right,
 /* ============================= */
 
 #lookbook_section {
-  min-height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -277,31 +277,150 @@ mask-image: linear-gradient(to right,
   letter-spacing: 2px;
 }
 
-/* fixed capitalization */
+/* Carousel Container */
 .lookbookCarousel {
   width: 90%;
-  max-width: 82%;
-  overflow: hidden;        /* hides overflow, ensures only one strip width is visible */
+  max-width: 100%;
+  overflow: hidden;
   border-radius: 12px;
   position: relative;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
+/* Carousel Track */
 .carousel-images {
   display: flex;
-  width: max-content;      /* fits two full sets side by side */
-  animation: pan 40s linear infinite; /* continuous scroll */
+  flex-wrap: nowrap;         /* prevent wrapping */
 }
 
+/* Individual Images */
 .carousel-images img {
-  flex-shrink: 0;
-  height: 80vh;            /* strip height */
-  width: auto;
-  object-fit: contain;
- }
+  flex-shrink: 0;            /* prevents squishing */
+  height: 80vh;              /* scale images to same height */
+  width: auto;               /* maintain aspect ratio */
+  object-fit: contain;       /* no cropping */
+  margin-right: 0px;         /* optional spacing between images */
+}
 
-/* keyframes: scroll one set width (50%) */
-@keyframes pan {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .carousel-images img {
+    height: 50vh;            /* adjust height for smaller screens */
+  }
+}
+
+
+/* ======================= */
+/* BOTTOM INFO SECTION */
+/* ======================= */
+#bottom_info {
+  display: grid;
+  grid-template-columns: repeat(3, auto); /* columns size to content */
+  gap: 200px; /* spacing between quadrants */
+  padding: 60px 0%;
+  justify-content: center; /* centers the whole grid horizontally */
+  border-top: 1px solid white; /* horizontal line at the top */
+  text-align: left; /* align text inside each quadrant to the left */
+}
+
+#bottom_info h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 60px;
+  color: #fff;
+}
+
+#bottom_info p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #fff;
+}
+
+#bottom_info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#bottom_info li {
+  margin-bottom: 8px;
+}
+
+#bottom_info a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#bottom_info a:hover {
+  color: red; /* highlight on hover */
+}
+
+/* Vertical dividers between quadrants */
+#bottom_info .quadrant {
+  padding: 0 20px;
+  border-right: 1px solid white; /* vertical divider */
+}
+
+#bottom_info .quadrant:last-child {
+  border-right: none; /* remove divider on the last quadrant */
+}
+
+/* Mobile-friendly */
+@media (max-width: 768px) {
+  #bottom_info {
+    grid-template-columns: 1fr;
+    text-align: left; /* keep text left-aligned on mobile */
+  }
+
+  #bottom_info .quadrant {
+    border-right: none;
+    border-bottom: 1px solid white;
+    padding: 20px 0;
+  }
+
+  #bottom_info .quadrant:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ======================= */
+/* FOOTER SECTION */
+/* ======================= */
+#footer_info {
+  background-color: #000;      /* matches bottom_info */
+  color: #fff;
+  text-align: center;
+  padding: 20px 10%;
+  font-size: 0.9rem;
+  border-top: 1px solid #fff; /* subtle separation */
+}
+
+#footer_info p {
+  margin: 5px 0;
+}
+
+#footer_info a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#footer_info a:hover {
+  color: red;
+}
+
+/* Mobile-friendly */
+@media (max-width: 768px) {
+  #footer_info {
+    font-size: 0.8rem;
+  }
+
+  #footer_info .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
