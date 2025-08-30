@@ -1,20 +1,21 @@
 /* Scoped to Hire Me page only */
 body.hireme-page {
-  background-color: #0a0a0a;       /* dark background */
-  color: #eaeaea;                  /* light text */
+  background-color: #0a0a0a;
+  color: #eaeaea;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.6;
   padding: 4rem 2rem;
+  min-height: auto;
 }
 
-/* Center and constrain content */
+/* Container for intro text */
 body.hireme-page .hireMe {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
 }
 
-/* Big, bold, blocky title */
+/* Title styling */
 body.hireme-page .hireMe h1 {
   font-size: 3rem;
   font-weight: 900;
@@ -22,12 +23,12 @@ body.hireme-page .hireMe h1 {
   margin-bottom: 2rem;
   text-transform: uppercase;
   color: #ffffff;
-  border-bottom: 4px solid #e50914; /* red underline */
+  border-bottom: 4px solid #e50914;
   display: inline-block;
   padding-bottom: 0.5rem;
 }
 
-/* Paragraphs with professional spacing */
+/* Description paragraphs */
 body.hireme-page .hireMe p {
   font-size: 1.1rem;
   margin: 1.5rem 0;
@@ -38,7 +39,10 @@ body.hireme-page .hireMe p {
 /* Skills section */
 body.hireme-page .skills {
   margin-top: 3rem;
-  text-align: center;
+  width: 100vw;                  /* full viewport width */
+  margin-left: calc(-50vw + 50%);
+  padding: 0 2rem;               /* breathing space */
+  text-align: left;
 }
 
 body.hireme-page .skills h2 {
@@ -48,32 +52,55 @@ body.hireme-page .skills h2 {
   margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 body.hireme-page .skills ul {
   list-style: none;
   padding: 0;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  max-width: 600px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
 }
 
 body.hireme-page .skills li {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
   background: #1a1a1a;
   border: 1px solid #333;
-  padding: 1rem 1.2rem;
+  padding: 2rem;
   border-radius: 6px;
   transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  color: #eaeaea;
 }
 
+/* Hover effect */
 body.hireme-page .skills li:hover {
   background: #e50914;
   color: #fff;
   cursor: default;
+}
+
+/* Media inside each skill */
+body.hireme-page .skills .skill-media {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+body.hireme-page .skills .skill-media img,
+body.hireme-page .skills .skill-media video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  object-fit: contain;
 }
 
 /* Closing note */
