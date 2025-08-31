@@ -6,7 +6,6 @@ window.gsap = gsap;
 
 import { setupBlackholeAnimation } from "./blackhole.js"; // Blackhole intro animation
 import { revealRedDot } from "./redDotReveal.js";         // Red dot reveal logic
-import { handleVideoEnd } from "./dynamicTexts.js";       // Typewriter effect after video finishes
 import { handleMainGalleryAnimation } from "./mainGallery.js"; // Gallery section fade-in
 import { handleNavbarScroll, handleNavbarHover } from "./navBar.js"; // Navbar behaviors
 import { handleSectionTransition } from "./sectionTransition.js"; // Section transition
@@ -14,7 +13,7 @@ import { promotionalBarAnim } from "./promotionalBar.js";  // Promo bar animatio
 import { showBlackScreenAndFade } from './loadInScreen.js'; // Loading screen
 import { setupLookbookCarousel } from './lookbookCarousel.js'; // matches export
 import { initLookbookCarousel } from './initLookbookCarousel.js';
-
+import { initDynamicText } from "./dynamicTexts.js";
 
 
 // ========== INITIALIZATION ==========
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Start all other functions after the loading screen fades
             setupBlackholeAnimation();
             revealRedDot();
-            handleVideoEnd("blackhole_video", "main_gallery", 100); // Ensure these arguments are correct
+          
             handleMainGalleryAnimation();
             handleNavbarScroll();
             handleNavbarHover();
@@ -37,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             promotionalBarAnim();
             setupLookbookCarousel(); // matches import/export
             initLookbookCarousel();
+            initDynamicText("dynamic-text", 100);
 
               // ===== Debug scroll detection =====
             window.addEventListener('scroll', () => {
