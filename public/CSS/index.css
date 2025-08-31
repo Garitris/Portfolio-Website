@@ -302,6 +302,8 @@ mask-image: linear-gradient(to right,
   margin-right: 0px;         /* optional spacing between images */
 }
 
+
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .carousel-images img {
@@ -423,4 +425,28 @@ mask-image: linear-gradient(to right,
     flex-direction: column;
     gap: 5px;
   }
+}
+
+/* Wrap nav as flex to hold center + right */
+#top_nav_bar nav {
+  display: flex;
+  justify-content: center;   /* center the original buttons */
+  align-items: center;
+  position: relative;        /* so right section can be placed */
+}
+
+/* Center group stays naturally centered */
+.nav-center {
+  display: flex;
+  gap: 15px; /* same spacing as before */
+}
+
+/* Right group sticks to end */
+.nav-right {
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  left: 900px;   /* adjust spacing from right edge */
+  top: 50%;
+  transform: translateY(-50%);
 }

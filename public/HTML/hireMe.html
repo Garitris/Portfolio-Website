@@ -23,71 +23,103 @@
         </nav>
     </section>
 
-    <!-- Top navigation bar -->
-    <header id="top_nav_bar">
-        <nav>
-            <div class="button-list">
-                <a href="index.html"><button class="btn">Home</button></a>
-                <a href="collection1.html"><button class="btn">Store</button></a>
-                <a href="hireMe.html"><button class="btn">BTS</button></a>
-            </div>
-        </nav>
-    </header>
+<header id="top_nav_bar">
+  <nav>
+    <!-- Center buttons (original 3) -->
+    <div class="nav-center">
+      <a href="index.html"><button class="btn">Home</button></a>
+      <a href="collection1.html"><button class="btn">Store</button></a>
+      <a href="hireMe.html"><button class="btn">BTS</button></a>
+    </div>
+
+    <!-- Right buttons (new 2) -->
+    <div class="nav-right">
+      <a href="hireMe.html"><button class="btn">Profile</button></a>
+      <a href="hireMe.html"><button class="btn">Cart</button></a>
+    </div>
+  </nav>
+</header>
 
     <div class="hireMe">
-        <div class="baitAndSwitch">
-            <h1>VANTΔ / GARY HUI</h1>
-            <p class="description">
-                Instead of building a portfolio, I built a brand that doesn’t exist.  
-                <br><br>
-                VANTΔ is a designed illusion: product photography, web interactions, and campaign visuals — all crafted to feel real. The twist is that nothing is for sale. The brand itself <em>is</em> the portfolio, testing how deeply an idea can pull you in.  
-                <br><br>
-                If you’ve already hovered, clicked, or tried to “add to cart,” then my work has done its job.
-            </p>
+        <h1>VANTΔ / GARY HUI</h1>
+        <p class="description">
+            Instead of building a portfolio, I built a brand that doesn’t exist.  
+            <br><br>
+            VANTΔ is a designed illusion: product photography, web interactions, and campaign visuals — all crafted to feel real. The twist is that nothing is for sale. The brand itself <em>is</em> the portfolio, testing how deeply an idea can pull you in.  
+            <br><br>
+            If you’ve already hovered, clicked, or tried to “add to cart,” then my work has done its job.
+        </p>
+    </div>
 
-            <div class="skills">
-                <h2>Capabilities</h2>
-                <ul>
-                    <li>
-                        <p>Brand Identity & Creative Direction</p>
-                        <div class="skill-media">
-                            <img src="../imgs/Collection1/BTS_visuals/bts_Brand_Overview.PNG" alt="Creative Direction Example">
-                            <video src="../imgs/Collection1/BTS_visuals/previz.video.mp4" autoplay muted loop playsinline></video>
-                        </div>
-                    </li>
-                    <li>
-                        <p>3D Rendering & Product Mockups</p>
-                        <div class="skill-media">
-                            <video src="../imgs/Collection1/BTS_visuals/Wippy_Wippy.mp4" autoplay muted loop playsinline></video>
-                            <video src="../imgs/InShot_20250330_014659291.mp4" autoplay muted loop playsinline></video>
-                        </div>
-                    </li>
-                    <li>
-                        <p>Fashion & product Photography</p>
-                        <div class="skill-media">
-                            <video src="../imgs/Collection1/BTS_visuals/Vest_bts.mp4" autoplay muted loop playsinline></video>
-                              <img src="../imgs/Collection1/BTS_visuals/Vest_bts_2.png" alt="Creative Direction Example">
-                              <img src="../imgs/Collection1/BTS_visuals/Vest_bts_3.png" alt="Creative Direction Example">        
-                        </div>
-                    </li>
-                    <li>
-                        <p>Web Design & Development</p>
-                        <div class="skill-media">
-                            <video src="../imgs/Collection1/BTS_visuals/coding_bts_1.mp4" autoplay muted loop playsinline></video>
-                            <video src="../imgs/Collection1/BTS_visuals/coding_bts_2.mp4" autoplay muted loop playsinline></video>
-                        </div>
-                    </li>
-                   
-                </ul>
+   <!-- Skills section -->
+<div class="skills">
+    <h2>Behind the Scenes</h2>
+    <ul>
+        <!-- 1. Brand Identity & Creative Direction -->
+        <li class="text-left">
+            <div class="skill-content">
+                <div class="skill-text">
+                    <p>Brand Identity & Creative Direction</p>
+                </div>
+                <div class="skill-media">
+                    <img class="skill-media-item-1" src="../imgs/Collection1/BTS_visuals/bts_Brand_Overview.PNG" alt="Creative Direction Example">
+                    <video class="skill-media-item-2" src="../imgs/Collection1/BTS_visuals/previz.video.mp4" autoplay muted loop playsinline></video>
+                </div>
             </div>
+        </li>
 
-            <div class="closing-note">
-                <p>
-                    I treat design like worldbuilding — every pixel, every render, every photo is part of the illusion.  
-                    Reach out if you want to collaborate and bring our visions to life!
-                </p>
+        <!-- 2. 3D Rendering & Product Mockups -->
+        <li class="text-right">
+            <div class="skill-content">
+                <div class="skill-text">
+                    <p>3D Rendering & Product Mockups</p>
+                </div>
+                <div class="skill-media">
+                    <video class="skill-media-item-1" src="../imgs/Collection1/BTS_visuals/Wippy_Wippy.mp4" autoplay muted loop playsinline></video>
+                    <video class="skill-media-item-2" src="../imgs/InShot_20250330_014659291.mp4" autoplay muted loop playsinline></video>
+                </div>
             </div>
-        </div>
+        </li>
+
+        <!-- 3. Fashion & Product Photography -->
+        <li class="text-left">
+            <div class="skill-content">
+                <div class="skill-text">
+                    <p>Fashion & Product Photography</p>
+                </div>
+                <div class="skill-media">
+                    <video class="skill-media-item-1" src="../imgs/Collection1/BTS_visuals/Vest_bts.mp4" autoplay muted loop playsinline></video>
+                    <img class="skill-media-item-2" src="../imgs/Collection1/BTS_visuals/Vest_bts_2.png" alt="Creative Direction Example">
+                    <img class="skill-media-item-3" src="../imgs/Collection1/BTS_visuals/Vest_bts_3.png" alt="Creative Direction Example">
+                </div>
+            </div>
+        </li>
+
+        <!-- 4. Web Design & Development -->
+        <li class="text-right">
+            <div class="skill-content">
+                <div class="skill-text">
+                    <p>Web Design & Development</p>
+                </div>
+                <div class="skill-media">
+                    <video class="skill-media-item-1" src="../imgs/Collection1/BTS_visuals/coding_bts_1.mp4" autoplay muted loop playsinline></video>
+                    <video class="skill-media-item-2" src="../imgs/Collection1/BTS_visuals/coding_bts_2.mp4" autoplay muted loop playsinline></video>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+    <div class="hireMe closing-note">
+        <p>
+            Think like a creative director, design like an art director, and build like a focused indie dev.
+            I treat design like worldbuilding — every pixel, every render, every photo is part of the illusion.  
+            Seeking opportunities now!
+        
+        </p>
+        </p>
+        email: garyhuiart@gmail.com
+        </p>
     </div>
 
     <script type="module" src="../JS/index.js"></script>
