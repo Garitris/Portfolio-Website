@@ -185,7 +185,7 @@ mask-image: linear-gradient(to right,
     position: absolute;
     left: -1.5vw; /* Moves the red dot to the left of the first letter */
     top: 0.1em; /* Aligns the red dot with the first line of text */
-    background-image: url('../imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
+    background-image: url('imgs/Red_Dot_01.gif'); /* Add the path to your red dot gif */
     background-size: contain; /* Ensures the image scales properly */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     width: 1.2vw;  /* Set the width of the red dot */
