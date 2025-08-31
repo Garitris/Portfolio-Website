@@ -2,11 +2,12 @@
 /* INTRO ANIMATION SECTION */
 /* ======================= */
 
-
 #homescreen {
     height: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    font-family: 'Inter', sans-serif;
 }
-
 
 /* The section that holds the video */
 #intro_animation {
@@ -318,24 +319,22 @@ mask-image: linear-gradient(to right,
 #bottom_info {
   display: grid;
   grid-template-columns: repeat(3, auto); /* columns size to content */
-  gap: 200px; /* spacing between quadrants */
-  padding: 60px 0%;
+  gap: 12%; /* spacing between quadrants */
+  padding: 2%;
   justify-content: center; /* centers the whole grid horizontally */
   border-top: 1px solid white; /* horizontal line at the top */
   text-align: left; /* align text inside each quadrant to the left */
 }
 
 #bottom_info h3 {
-  margin-bottom: 15px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 60px;
   color: #fff;
 }
 
 #bottom_info p {
-  margin: 5px 0;
-  font-size: 0.9rem;
+  margin: 1% ;
   line-height: 1.4;
   color: #fff;
 }
@@ -362,8 +361,8 @@ mask-image: linear-gradient(to right,
 
 /* Vertical dividers between quadrants */
 #bottom_info .quadrant {
-  padding: 0 20px;
-  border-right: 1px solid white; /* vertical divider */
+ 
+  border-right: 0px solid white; /* vertical divider */
 }
 
 #bottom_info .quadrant:last-child {
@@ -388,9 +387,8 @@ mask-image: linear-gradient(to right,
   }
 }
 
-/* ======================= */
 /* FOOTER SECTION */
-/* ======================= */
+
 #footer_info {
   background-color: #000;      /* matches bottom_info */
   color: #fff;
@@ -438,15 +436,26 @@ mask-image: linear-gradient(to right,
 /* Center group stays naturally centered */
 .nav-center {
   display: flex;
-  gap: 15px; /* same spacing as before */
+}
+
+/*.nav-center * {
+
 }
 
 /* Right group sticks to end */
 .nav-right {
   display: flex;
-  gap: 15px;
   position: absolute;
-  left: 900px;   /* adjust spacing from right edge */
+  left: 45vw;   /* adjust spacing from right edge */
   top: 50%;
   transform: translateY(-50%);
 }
+
+.gallery,
+.lookbookCarousel,
+.quadrant {
+  overflow: hidden;
+}
+
+
+
