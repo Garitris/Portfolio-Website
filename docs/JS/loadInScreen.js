@@ -1,19 +1,16 @@
+// Handles launch black screen fade
 export const showBlackScreenAndFade = () => {
-    return new Promise((resolve) => {
-        const blackScreen = document.getElementById('blackScreen');
+  return new Promise((resolve) => {
+    const blackScreen = document.getElementById('blackScreen');
 
-        // Wait 1 second before starting fade-out
-        setTimeout(() => {
-            blackScreen.style.opacity = '0';  // Start fade-out
+    setTimeout(() => {
+      blackScreen.style.opacity = '0';        // fade out
+      document.body.classList.add("loaded");  // reveal page
 
-            // Add loaded class as the fade starts
-            document.body.classList.add("loaded"); // ✅ THIS LINE RESTORES PAGE FADE-IN
-
-            // Remove after fade completes
-            setTimeout(() => {
-                blackScreen.remove();
-                resolve(); // 
-            }, 1500); // Match fade-out duration
-        }, 200);
-    });
+      setTimeout(() => {
+        blackScreen.remove();
+        resolve(); // launch animation finished
+      }, 1500); // match fade duration
+    }, 200);
+  });
 };

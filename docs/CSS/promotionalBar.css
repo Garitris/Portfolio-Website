@@ -6,10 +6,17 @@
     width: 100%;
     background-color: black;
     z-index: 10001;
-    display: flex;
+
+    /* hide completely at first */
+    display: none;
+    opacity: 0;
     align-items: center;
     justify-content: center;
-    transition: top .05s ease-out;
+    transition: top 0.05s ease-out, opacity 0.5s ease;
 }
-    
 
+#promotionalBar.visible {
+    display: flex;        /* restore layout */
+    opacity: 1;           /* fade in */
+    pointer-events: auto; /* allow clicks */
+}
