@@ -218,13 +218,51 @@ mask-image: linear-gradient(to right,
     position: relative;
     width: 100vw;
     min-height: 70vh; /* Make sure it can grow */
-    background-color: #504848; /* Dark background to match your theme */
+    background-color: #000000; /* Dark background to match your theme */
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 0;
     padding-top: 0;
 }
+
+/* Main Page Logo */
+.mainPageLogo {
+    position: absolute;      /* relative to #brand_identity now */
+    top: 4vw;                /* adjust this to move logo down inside the section */
+    left: 50vw;
+    transform: translateX(-50%); /* perfectly center horizontally */
+    z-index: 10;
+    width: 30vw;            /* adjust size as needed */
+    height: auto;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.mainPageLogo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Fade-in animation for the logo */
+@keyframes fadeInLogo {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px); /* slightly above initial position */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0); /* final position */
+    }
+}
+
+/* Apply animation to logo */
+.mainPageLogo {
+    opacity: 0; /* start hidden */
+    animation: fadeInLogo 3.5s ease forwards; /* 1.5s fade-in */
+}
+
 
 /* Video setup */
 #Collection_1_Footage_01 {
@@ -236,18 +274,28 @@ mask-image: linear-gradient(to right,
     object-fit: cover;
 }
 
-/* Overlay Text */
+/* FALL25 text inside Lookbook Section */
 .FALL25.COLLECTION {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;        /* relative to its parent: lookbook_section */
+    top: -2vw;                /* move up a bit if needed */
+    left: 0;
+    transform: none;           /* remove absolute centering */
     color: white;
     font-size: 4rem;
     font-weight: bold;
     text-align: center;
-    pointer-events: none; /* Allows clicks to pass through */
+    pointer-events: none;
+    margin-bottom: 20px;       /* spacing above carousel */
+    width: 100%;               /* center text across section */
+    z-index: 10;        
 }
+
+/* Center the text */
+.FALL25.COLLECTION p {
+    text-align: center;
+    margin: 0;
+}
+
 
 /* Responsive Text */
 @media (max-width: 768px) {
@@ -436,19 +484,24 @@ mask-image: linear-gradient(to right,
 /* Center group stays naturally centered */
 .nav-center {
   display: flex;
+  font-family: fantasy;
 }
 
-/*.nav-center * {
-
+.nav-right a button {
+    padding: 0;          /* remove extra padding */
+    width: auto;         /* shrink to fit content */
+    min-width: 0;        /* override browser defaults */
+    background: none;    /* optional, remove default styling */
+    border: none;        /* optional */
+    font-size: inherit;  /* match parent font */
 }
 
-/* Right group sticks to end */
+/* Make the right section align to the right */
 .nav-right {
-  display: flex;
-  position: absolute;
-  left: 45vw;   /* adjust spacing from right edge */
-  top: 50%;
-  transform: translateY(-50%);
+    position: absolute;        /* position relative to nav */
+    right: -33vw;               /* distance from the right edge */
+    display: flex;        /* ensure buttons are in a row */
+    gap: 80%;
 }
 
 .gallery,
@@ -456,6 +509,5 @@ mask-image: linear-gradient(to right,
 .quadrant {
   overflow: hidden;
 }
-
 
 

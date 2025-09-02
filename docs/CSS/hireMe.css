@@ -96,18 +96,20 @@ body.hireme-page .skills li .skill-content {
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: nowrap;
+  color: #1a1a1a;
 }
 
 /* Skill text - smaller width & font */
 body.hireme-page .skills li .skill-text {
-  flex: 0 0 18%; /* smaller to give more media space */
+  flex: 0 0 13%; /* smaller to give more media space */
   min-width: 180px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  font-size: 1.1rem;  /* smaller font */
-  padding: 0.5rem;
+  font-size: 1.4rem;  /* smaller font */
+  line-height: 1.4rem;
   box-sizing: border-box;
+  text-align: center;
 }
 
 /* Text alignment variations */
@@ -159,13 +161,13 @@ body.hireme-page .skills li:nth-child(2) .skill-media video.skill-media-item-2 {
 
 /* 3. Fashion & Product Photography */
 body.hireme-page .skills li:nth-child(3) .skill-media video.skill-media-item-1 {
-  width: 25%; height: 65%;
+  width: 27%; height: 65%;
 }
 body.hireme-page .skills li:nth-child(3) .skill-media img.skill-media-item-2 {
-  width: 33.5%; height: 65%;
+  width: 36%; height: 65%;
 }
 body.hireme-page .skills li:nth-child(3) .skill-media img.skill-media-item-3 {
-  width: 33.5%; height: 55%;
+  width: 36%; height: 55%;
 }
 
 /* 4. Web Design & Development */
@@ -183,4 +185,28 @@ body.hireme-page .closing-note {
   color: #cccccc;
   line-height: 1.6;
   text-align: center;
+}
+
+.skill-content {
+  position: relative; /* creates a positioning context */
+}
+
+.skill-paragraph2 {
+  position: absolute;
+  bottom: 50vw;      /* adjust where it sits */
+  left: 121vw;
+  transform: translateX(-50%); /* centers it horizontally */
+  width: 83vw;        /* or max-width: 600px */
+  text-align: left;
+}
+
+.skill-paragraph2 p {
+  max-width: 20%;
+  line-height: 1.4;
+  font-size: 1.3rem;
+}
+
+.skill-text2 {
+  text-align: center;
+  
 }
