@@ -261,7 +261,7 @@ body.hireme-page .skills li:nth-child(6) .skill-media video.skill-media-item-2 {
 
 /* 3. 3D Rendering paragraph */
 .skill-paragraph--rendering {
-  bottom: -3vw;
+  bottom: 0vw;
   right: 82vw;
   width: 15vw;
   line-height: 1.2;
